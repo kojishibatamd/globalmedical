@@ -677,6 +677,48 @@
     z-index: 2;
   }
 </style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  const total = 10;
+  let current = 0;
+
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+
+  // Build dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsContainer.appendChild(d);
+  }
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+  }
+
+  function changeSlide(dir) {
+    const next = current + dir;
+    if (next >= 0 && next < total) goTo(next);
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') changeSlide(1);
+    if (e.key === 'ArrowLeft')  changeSlide(-1);
+  });
+
+});
+</script>
 </head>
 <body>
 <!-- Back to corporate site -->
@@ -980,7 +1022,7 @@
           </div>
         </div>
         <div class="contacts">
-          <div class="contact-item">📧 admin@globalmedical.jp</div>
+          <div class="contact-item">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1372777e7a7d53747f7c71727f7e76777a70727f3d7963">[email&#160;protected]</a></div>
           <div class="contact-item">🌐 www.karte-medical.jp（準備中）</div>
         </div>
       </div>
@@ -1001,37 +1043,6 @@
   </div>
 </div>
 
-<script>
-  const total = 10;
-  let current = 0;
 
-  const slides = document.querySelectorAll('.slide');
-  const dotsContainer = document.getElementById('dots');
-  const counter = document.getElementById('counter');
-
-  // Build dots
-  for (let i = 0; i < total; i++) {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => goTo(i);
-    dotsContainer.appendChild(d);
-  }
-
-  function goTo(n) {
-    slides[current].classList.remove('active');
-    dotsContainer.children[current].classList.remove('active');
-    current = n;
-    slides[current].classList.add('active');
-    dotsContainer.children[current].classList.add('active');
-    counter.textContent = (current + 1) + ' / ' + total;
-    document.getElementById('prevBtn').disabled = current === 0;
-    document.getElementById('nextBtn').disabled = current === total - 1;
-  }
-
-  function changeSlide(dir) {
-    const next = current + dir;
-    if (next >= 0 && next < total) goTo(next);
-  }
-
-  // Keyboard navigation
- 
+</body>
+</html>
