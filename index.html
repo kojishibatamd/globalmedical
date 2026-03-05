@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>グローバルメディカル株式会社 | State-of-the-art for everyone</title>
+
+    <!-- OGP -->
+    <meta name="description" content="グローバルメディカル株式会社 – 遠隔画像診断・医療鑑定・国際医療支援を通じ、最先端医療をすべての人へ。">
+    <meta property="og:title" content="グローバルメディカル株式会社">
+    <meta property="og:description" content="遠隔画像診断・医療鑑定・国際医療支援。State-of-the-art for everyone.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep:   #050a0f;
+            --bg-card:   #0f172a;
+            --logo-blue: #00a0e9;
+            --logo-red:  #e60012;
+            --text-main: #e2e8f0;
+            --text-dim:  #94a3b8;
+            --white:     #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(5, 10, 15, 0.92);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            transition: padding 0.3s;
+        }
+        .header-logo img { height: 42px; width: auto; }
+
+        nav.desktop-nav a {
+            margin-left: 28px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        nav.desktop-nav a:hover { color: var(--logo-blue); }
+
+        /* ハンバーガー */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1100;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-main);
+            border-radius: 2px;
+            transition: 0.35s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* モバイルナビ */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: rgba(5,10,15,0.98);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-main);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .mobile-nav a:hover { color: var(--logo-blue); }
+
+        /* ===== HERO ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(5,10,15,0.75), rgba(5,10,15,0.85)),
+                url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+        }
+        /* グリッドオーバーレイ */
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,160,233,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,160,233,0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeUp 1s ease both;
+        }
+        @keyframes heroFadeUp {
+            from { opacity:0; transform:translateY(30px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        .hero-logo-main {
+            max-width: 520px;
+            width: 75%;
+            filter: drop-shadow(0 0 30px rgba(0,160,233,0.35));
+            margin-bottom: 30px;
+        }
+        .hero-tagline {
+            font-size: 1rem;
+            color: var(--text-dim);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            animation: heroFadeUp 1s 0.2s ease both;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 40px;
+            background: var(--logo-blue);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: background 0.3s, transform 0.3s;
+            animation: heroFadeUp 1s 0.4s ease both;
+        }
+        .hero-cta:hover { background: #0077b6; transform: translateY(-3px); }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%,100% { transform: translateX(-50%) translateY(0); }
+            50%      { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ===== SECTION COMMON ===== */
+        section { padding: 110px 10%; }
+        .section-title { text-align: center; margin-bottom: 70px; }
+        .section-title h2 {
+            font-size: 2.4rem;
+            letter-spacing: 4px;
+            color: var(--white);
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .section-title p { color: var(--logo-blue); font-weight: 700; margin-top: 10px; font-size: 0.9rem; letter-spacing: 2px; }
+        .section-title .divider {
+            width: 50px; height: 3px;
+            background: linear-gradient(90deg, var(--logo-blue), var(--logo-red));
+            margin: 18px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ===== SERVICES ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .service-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-left: 4px solid var(--logo-blue);
+            transition: transform 0.35s, box-shadow 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,160,233,0.12), transparent 70%);
+            transition: 0.5s;
+        }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,160,233,0.15); }
+        .service-card:hover::before { transform: scale(1.5); }
+        .service-card.kantei { border-left-color: var(--logo-red); }
+        .service-card.kantei::before { background: radial-gradient(circle, rgba(230,0,18,0.12), transparent 70%); }
+        .service-card.kantei:hover { box-shadow: 0 20px 50px rgba(230,0,18,0.15); }
+        .service-card.intl::before { background: radial-gradient(circle, rgba(0,200,100,0.10), transparent 70%); }
+
+        .brand-tag {
+            display: inline-block;
+            color: var(--logo-blue);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .kantei .brand-tag { color: var(--logo-red); }
+        .service-card h3 { margin-bottom: 14px; font-size: 1.4rem; color: var(--white); }
+        .service-card p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.9; margin-bottom: 28px; }
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 18px;
+            color: var(--logo-blue);
+        }
+        .kantei .card-icon { color: var(--logo-red); }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border: 1.5px solid var(--logo-blue);
+            color: var(--logo-blue);
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .card-link:hover { background: var(--logo-blue); color: #fff; }
+        .kantei .card-link { border-color: var(--logo-red); color: var(--logo-red); }
+        .kantei .card-link:hover { background: var(--logo-red); color: #fff; }
+
+        /* ===== BOOKING ===== */
+        .booking-section { background: #070d14; text-align: center; }
+        .booking-card {
+            background: var(--bg-card);
+            padding: 70px 50px;
+            border-radius: 30px;
+            border: 1px solid rgba(0,160,233,0.2);
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .booking-card::before {
+            content: '';
+            position: absolute;
+            top: -100px; left: 50%;
+            transform: translateX(-50%);
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,160,233,0.1), transparent 70%);
+        }
+        .booking-icon {
+            font-size: 3.5rem;
+            color: var(--logo-blue);
+            margin-bottom: 22px;
+            position: relative;
+        }
+        .booking-card h3 { font-size: 1.6rem; color: #fff; margin-bottom: 18px; position: relative; }
+        .booking-card p  { color: var(--text-dim); margin-bottom: 40px; font-size: 0.95rem; position: relative; }
+        .booking-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 55px;
+            background: linear-gradient(135deg, var(--logo-blue), #0077b6);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(0,160,233,0.3);
+            position: relative;
+        }
+        .booking-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,160,233,0.45); }
+        .booking-note { color: var(--text-dim); font-size: 0.78rem; margin-top: 22px; position: relative; }
+
+        /* ===== COMPANY ===== */
+        .company-section { background: #070d14; }
+        .company-table {
+            width: 100%; max-width: 820px; margin: 0 auto;
+            border-collapse: collapse;
+        }
+        .company-table th, .company-table td {
+            padding: 22px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        .company-table th { width: 28%; color: var(--logo-blue); font-weight: 700; letter-spacing: 1px; }
+        .company-table td { color: var(--text-main); }
+        .profile-link {
+            display: inline-block; margin-top: 10px; padding: 8px 18px;
+            border: 1px solid var(--logo-blue); color: var(--logo-blue);
+            text-decoration: none; border-radius: 5px; font-size: 0.82rem;
+            transition: 0.3s;
+        }
+        .profile-link:hover { background: var(--logo-blue); color: #fff; }
+
+        /* ===== CONTACT ===== */
+        .contact-section { background: var(--bg-deep); }
+        .form-container { max-width: 680px; margin: 0 auto; }
+        .form-group { margin-bottom: 18px; position: relative; }
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        input, select, textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 18px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--logo-blue);
+        }
+        input.error, select.error, textarea.error { border-color: var(--logo-red); }
+        .error-msg {
+            color: var(--logo-red);
+            font-size: 0.75rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+        select option { background-color: #121a25; color: #fff; }
+        .submit-btn {
+            width: 100%; padding: 18px;
+            background: linear-gradient(135deg, var(--logo-blue), #0077b6);
+            color: #fff; border: none; border-radius: 10px;
+            font-weight: 700; font-size: 1rem; cursor: pointer;
+            transition: 0.3s; letter-spacing: 1px;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,160,233,0.35); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        /* ===== LEGAL ===== */
+        .legal-section {
+            background: #030709;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            padding: 80px 10%;
+        }
+        .legal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            font-size: 0.83rem;
+            color: var(--text-dim);
+        }
+        .legal-box {
+            background: rgba(255,255,255,0.02);
+            padding: 28px;
+            border-radius: 12px;
+            height: 280px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.1) transparent;
+        }
+        .legal-box h4 {
+            color: var(--white);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0,160,233,0.4);
+            font-size: 0.88rem;
+            letter-spacing: 1px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 60px 5%;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: var(--bg-deep);
+        }
+        .footer-logo { height: 38px; margin-bottom: 18px; }
+        footer p { color: var(--text-dim); font-size: 0.8rem; }
+
+        /* ===== SCROLL ANIMATION ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header { padding: 12px 5%; }
+            nav.desktop-nav { display: none; }
+            .hamburger { display: flex; }
+            section { padding: 70px 6%; }
+            .section-title h2 { font-size: 1.7rem; }
+            .hero-logo-main { max-width: 85%; }
+            .hero-tagline { font-size: 0.78rem; }
+            .booking-card { padding: 50px 28px; }
+            .company-table th { width: 35%; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="header-logo"><img src="logo.png" alt="Global Medical"></div>
+    <nav class="desktop-nav">
+        <a href="#services">事業内容</a>
+        <a href="#booking">ZOOM予約</a>
+        <a href="#company">会社概要</a>
+        <a href="#contact">お問い合わせ</a>
+    </nav>
+    <div class="hamburger" id="hamburger" aria-label="メニュー" role="button">
+        <span></span><span></span><span></span>
+    </div>
+</header>
+
+<!-- モバイルナビ -->
+<nav class="mobile-nav" id="mobileNav">
+    <a href="#services"  onclick="closeMenu()">事業内容</a>
+    <a href="#booking"   onclick="closeMenu()">ZOOM予約</a>
+    <a href="#company"   onclick="closeMenu()">会社概要</a>
+    <a href="#contact"   onclick="closeMenu()">お問い合わせ</a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <img src="logo.png" alt="Global Medical" class="hero-logo-main">
+        <p class="hero-tagline">最先端医療を、すべての人へ</p>
+        <a href="#services" class="hero-cta">
+            サービスを見る <i class="fa-solid fa-arrow-down"></i>
+        </a>
+    </div>
+    <div class="hero-scroll">
+        <i class="fa-solid fa-chevron-down"></i>
+        <span>Scroll</span>
+    </div>
+</div>
+
+<!-- ===== SERVICES ===== -->
+<section id="services">
+    <div class="section-title fade-up">
+        <h2>Solutions</h2>
+        <p>提供サービス</p>
+        <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+        <div class="service-card fade-up">
+            <div class="card-icon"><i class="fa-solid fa-x-ray"></i></div>
+            <span class="brand-tag">遠隔化本舗</span>
+            <h3>遠隔画像診断・DX支援</h3>
+            <p>独自技術による安価なインフラ構築と高品質な読影診断。医療現場の生産性を向上させます。</p>
+            <a href="enkakuka.html" class="card-link">詳しく見る <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card kantei fade-up" style="transition-delay:0.1s">
+            <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+            <span class="brand-tag">医療鑑定本舗</span>
+            <h3>弁護士向け医療鑑定</h3>
+            <p>100件以上の実績。現役医師による精緻な鑑定と、無料ZOOM相談を提供します。</p>
+            <a href="kantei.html" class="card-link">詳しく見る <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card intl fade-up" style="transition-delay:0.2s">
+            <div class="card-icon"><i class="fa-solid fa-globe" style="color:#00c864"></i></div>
+            <span class="brand-tag" style="color:#00c864">International Support</span>
+            <h3>国際医療支援</h3>
+            <p>インバウンド患者の受入可否判断。専門的知見で最適な医療機関選定をアドバイスします。</p>
+        </div>
+        <div class="service-card fade-up" style="transition-delay:0.3s; border-left-color:#0D9A8A;">
+            <div class="card-icon"><i class="fa-solid fa-heart-pulse" style="color:#0D9A8A;"></i></div>
+            <span class="brand-tag" style="color:#0D9A8A;">KARTE</span>
+            <h3>患者向け医療AIプラットフォーム</h3>
+            <p>PHR・AIコンシェルジュ・患者コミュニティの3本柱。あなたの治療を、あなたが選ぶ時代へ。</p>
+            <a href="karte.html" class="card-link" style="border-color:#0D9A8A; color:#0D9A8A;">
+                詳しく見る <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== BOOKING ===== -->
+<section id="booking" class="booking-section">
+    <div class="section-title fade-up">
+        <h2>Consultation Booking</h2>
+        <p>無料ZOOM相談予約</p>
+        <div class="divider"></div>
+    </div>
+    <div class="booking-card fade-up">
+        <div class="booking-icon"><i class="fa-solid fa-calendar-check"></i></div>
+        <h3>カレンダーから日程を選択</h3>
+        <p>
+            Googleカレンダーと連携したリアルタイムの空き状況確認が可能です。<br>
+            ご希望の日時をそのままご選択ください。
+        </p>
+        <a href="https://timerex.net/s/admin_848e_49a5/b21e64a7" target="_blank" rel="noopener" class="booking-btn">
+            <i class="fa-solid fa-calendar-plus"></i> 予約カレンダーを開く
+        </a>
+        <p class="booking-note">※ 外部サイト（TimeRex）へ移動します</p>
+    </div>
+</section>
+
+<!-- ===== COMPANY ===== -->
+<section id="company" class="company-section">
+    <div class="section-title fade-up">
+        <h2>Company</h2>
+        <p>会社概要</p>
+        <div class="divider"></div>
+    </div>
+    <table class="company-table fade-up">
+        <tr>
+            <th>会社名</th>
+            <td>グローバルメディカル株式会社</td>
+        </tr>
+        <tr>
+            <th>英文社名</th>
+            <td>Global Medical Co., Ltd.</td>
+        </tr>
+        <tr>
+            <th>設立</th>
+            <td>2018年8月27日</td>
+        </tr>
+        <tr>
+            <th>代表者</th>
+            <td>
+                柴田 幸司
+                <br>
+                <a href="#" class="profile-link">代表者プロフィール <i class="fa-solid fa-arrow-right" style="font-size:0.7rem"></i></a>
+            </td>
+        </tr>
+        <tr>
+            <th>事業内容</th>
+            <td>遠隔画像診断・DX支援 / 医療鑑定 / 国際医療支援</td>
+        </tr>
+    </table>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="contact-section">
+    <div class="form-container">
+        <div class="section-title fade-up">
+            <h2>Contact</h2>
+            <p>その他のお問い合わせ</p>
+            <div class="divider"></div>
+        </div>
+        <form id="contactForm" class="fade-up" novalidate>
+            <div class="form-group">
+                <label>お名前 / 貴社名 <span style="color:var(--logo-red)">*</span></label>
+                <input type="text" name="name" placeholder="例）山田 太郎 / 〇〇病院">
+                <span class="error-msg" id="nameErr">お名前または貴社名を入力してください。</span>
+            </div>
+            <div class="form-group">
+                <label>メールアドレス <span style="color:var(--logo-red)">*</span></label>
+                <input type="email" name="email" placeholder="例）info@example.com">
+                <span class="error-msg" id="emailErr">有効なメールアドレスを入力してください。</span>
+            </div>
+            <div class="form-group">
+                <label>お問い合わせ項目 <span style="color:var(--logo-red)">*</span></label>
+                <select name="type">
+                    <option value="">選択してください</option>
+                    <option value="遠隔化本舗">遠隔化本舗について</option>
+                    <option value="医療鑑定本舗">医療鑑定本舗について</option>
+                    <option value="その他">その他</option>
+                </select>
+                <span class="error-msg" id="typeErr">項目を選択してください。</span>
+            </div>
+            <div class="form-group">
+                <label>ご相談内容</label>
+                <textarea name="message" rows="5" placeholder="お気軽にご記入ください。"></textarea>
+            </div>
+            <button type="submit" class="submit-btn" id="submitBtn">送信する &nbsp;<i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+    </div>
+</section>
+
+<!-- ===== LEGAL ===== -->
+<section class="legal-section">
+    <div class="legal-grid">
+        <div class="legal-box">
+            <h4>プライバシーポリシー</h4>
+            <p>グローバルメディカル株式会社（以下「当社」）は、提供する遠隔画像診断、医療鑑定、および国際医療支援業務において、お客様の個人情報を以下の通り取り扱います。<br><br>
+               1. 取得する情報：氏名、連絡先、医療画像データ、症例情報等。<br>
+               2. 利用目的：診断・鑑定業務の遂行、お問い合わせ対応。<br>
+               3. 安全管理：機密保持契約の締結およびデータの暗号化管理の徹底。<br>
+               4. 第三者提供：法令に基づく場合を除き、同意なく第三者へ提供しません。</p>
+        </div>
+        <div class="legal-box">
+            <h4>情報セキュリティ方針</h4>
+            <p>当社は医療情報を取り扱う責任を認識し、以下の取り組みを徹底します。<br><br>
+               1. 技術的対策：セキュアなネットワーク環境を用いた画像伝送の徹底。<br>
+               2. 組織的対策：全従業員および提携医師とのNDA締結。<br>
+               3. 法令遵守：厚生労働省「医療情報システムの安全管理に関するガイドライン」等の遵守。</p>
+        </div>
+        <div class="legal-box">
+            <h4>免責事項</h4>
+            <p>1. 当社が提供する無料ZOOM相談および本サイト上の情報は専門家としての助言であり、確定的な診断や法的判断を保証するものではありません。最終的な意思決定は利用者の責任において行ってください。<br><br>
+               2. 本サイトからのリンク先の内容について、当社は一切の責任を負いません。<br><br>
+               3. 予告なしにサイト内容の変更・削除を行うことがあります。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <img src="logo.png" alt="Global Medical" class="footer-logo">
+    <p>&copy; 2025 Global Medical Co., Ltd. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // ===== ハンバーガーメニュー =====
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileNav.classList.toggle('open');
+        document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+
+    function closeMenu() {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // ===== スクロールアニメーション =====
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ===== フォームバリデーション & 送信 =====
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name    = this.name;
+        const email   = this.email;
+        const type    = this.type;
+        let valid     = true;
+
+        // リセット
+        [name, email, type].forEach(f => f.classList.remove('error'));
+        document.querySelectorAll('.error-msg').forEach(m => m.classList.remove('show'));
+
+        if (!name.value.trim()) {
+            name.classList.add('error');
+            document.getElementById('nameErr').classList.add('show');
+            valid = false;
+        }
+        const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailReg.test(email.value)) {
+            email.classList.add('error');
+            document.getElementById('emailErr').classList.add('show');
+            valid = false;
+        }
+        if (!type.value) {
+            type.classList.add('error');
+            document.getElementById('typeErr').classList.add('show');
+            valid = false;
+        }
+        if (!valid) return;
+
+        const btn = document.getElementById('submitBtn');
+        btn.innerHTML = '送信中... <i class="fa-solid fa-spinner fa-spin"></i>';
+        btn.disabled = true;
+
+        const formData = {
+            name:    name.value,
+            email:   email.value,
+            type:    type.value,
+            message: this.message.value
+        };
+
+        const gasUrl = "https://script.google.com/macros/s/AKfycbx6dkTkDwwE79fmBy1c7noIL2BOV_EQDjQ3oOAnVRCcqmEpFXf302iMLNv1NUabwQYO/exec";
+
+        fetch(gasUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        }).then(() => {
+            alert('お問い合わせありがとうございます。送信が完了しました。');
+            this.reset();
+            btn.innerHTML = '送信する &nbsp;<i class="fa-solid fa-paper-plane"></i>';
+            btn.disabled = false;
+        }).catch(() => {
+            alert('送信に失敗しました。時間をおいて再度お試しください。');
+            btn.innerHTML = '送信する &nbsp;<i class="fa-solid fa-paper-plane"></i>';
+            btn.disabled = false;
+        });
+    });
+</script>
+</body>
+</html>
