@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/jpeg" href="logo.jpg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KARTE — 患者のための医療AIプラットフォーム</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700&display=swap');
+
+  :root {
+    --teal:       #0D9A8A;
+    --teal-dark:  #076E62;
+    --teal-light: #D4F0ED;
+    --teal-pale:  #F0FAF9;
+    --coral:      #F26A4F;
+    --white:      #FFFFFF;
+    --off-white:  #F7FAFA;
+    --gray-dark:  #2C3E3B;
+    --gray-mid:   #5A6E6B;
+    --gray-light: #ECF2F1;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #1a2e2b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+    min-height: 100vh;
+  }
+
+  /* ── Slideshow container ── */
+  .deck-wrap {
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .slide-counter {
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+  }
+
+  .slide-viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    animation: fadeIn 0.35s ease;
+  }
+  .slide.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Nav ── */
+  .nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .nav button {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 9px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    transition: background 0.2s;
+  }
+  .nav button:hover { background: rgba(255,255,255,0.22); }
+  .nav button:disabled { opacity: 0.3; cursor: default; }
+
+  .dot-nav {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+  }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .dot.active { background: var(--teal); transform: scale(1.4); }
+
+  /* ── Shared slide elements ── */
+  .footer {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 28px;
+    background: var(--teal-light);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 10px;
+    color: var(--teal-dark);
+    justify-content: space-between;
+  }
+
+  .tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--coral);
+    margin-bottom: 4px;
+  }
+
+  /* ════════════════════════
+     S1 — 表紙
+  ════════════════════════ */
+  #s1 {
+    background: var(--teal-dark);
+    flex-direction: row;
+    overflow: hidden;
+  }
+  #s1 .left {
+    width: 60%;
+    padding: 44px 40px 32px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+  }
+  #s1 .accent-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: var(--coral);
+  }
+  #s1 .brand {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #7ED8CF;
+  }
+  #s1 h1 {
+    font-size: clamp(26px, 4vw, 42px);
+    font-weight: 900;
+    color: white;
+    line-height: 1.25;
+    margin: 8px 0 16px;
+  }
+  #s1 .subtitle {
+    font-size: 14px;
+    color: #B2E0DB;
+    margin-bottom: 24px;
+  }
+  #s1 .divider {
+    width: 56px; height: 3px;
+    background: var(--coral);
+    margin-bottom: 14px;
+  }
+  #s1 .name { font-size: 15px; font-weight: 700; color: white; margin-bottom: 4px; }
+  #s1 .meta { font-size: 11px; color: #9ECEC9; line-height: 1.7; }
+  #s1 .right {
+    width: 40%;
+    position: relative;
+    overflow: hidden;
+  }
+  #s1 .circle1 {
+    position: absolute;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: var(--teal);
+    top: -80px; right: -60px;
+  }
+  #s1 .circle2 {
+    position: absolute;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: #0A7A6C;
+    bottom: -40px; right: 20px;
+  }
+  #s1 .phases {
+    position: absolute;
+    bottom: 32px; left: 44px;
+    display: flex; gap: 8px;
+  }
+  #s1 .phase-badge {
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+  }
+
+  /* ════════════════════════
+     S2 — 患者の現実
+  ════════════════════════ */
+  #s2 {
+    background: var(--off-white);
+    flex-direction: column;
+  }
+  #s2 .header {
+    background: white;
+    border-left: 5px solid var(--teal);
+    padding: 14px 20px;
+    flex-shrink: 0;
+  }
+  #s2 .header h2 { font-size: 20px; font-weight: 900; color: var(--teal-dark); }
+  #s2 .cards {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 12px 14px 4px;
+  }
+  #s2 .card {
+    background: white;
+    border-top: 4px solid var(--teal);
+    border-radius: 4px;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  #s2 .card .emoji { font-size: 22px; margin-bottom: 6px; }
+  #s2 .card .q {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--teal-dark);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  #s2 .card .a { font-size: 10px; color: var(--gray-mid); line-height: 1.5; }
+  #s2 .bottom-note {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--teal);
+    padding: 6px;
+    flex-shrink: 0;
+  }
+
+  /* ════════════════════════
+     S3 — KARTEとは
+  ════════════════════════ */
+  #s3 {
+    background: white;
+    flex-direction: column;
+  }
+  #s3 .header {
+    background: var(--teal-dark);
+    border-left: 5px solid var(--coral);
+    padding: 12px 20px;
+    flex-shrink: 0;
+  }
+  #s3 .header h2 { font-size: 19px; font-weight: 900; color: white; }
+  #s3 .body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px 6px;
+    gap: 10px;
+  }
+  #s3 .karte-badge {
+    background: var(--teal);
+    color: white;
+    font-size: 18px;
+    font-weight: 900;
+    padding: 7px 32px;
+    border-radius: 4px;
+    letter-spacing: 0.1em;
+  }
+  #s3 .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+  #s3 .pillar {
+    background: var(--gray-light);
+    border-top: 4px solid var(--teal);
+    border-radius: 4px;
+    padding: 12px 14px;
+  }
+  #s3 .pillar .icon { font-size: 20px; margin-bottom: 6px; }
+  #s3 .pillar h3 { font-size: 13px; font-weight: 700; color: var(--teal-dark); margin-bottom: 4px; }
+  #s3 .pillar p { font-size: 10px; color: var(--gray-mid); line-height: 1.5; }
+  #s3 .plus-note {
+    font-size: 10px; font-weight: 700; color: var(--teal);
+    text-align: center;
+  }
+
+  /* ════════════════════════
+     S4 — PHR
+  ════════════════════════ */
+  #s4 {
+    background: var(--off-white);
+    flex-direction: column;
+  }
+  #s4 .header {
+    background: white;
+    border-left: 5px solid var(--teal);
+    padding: 10px 20px;
+    flex-shrink: 0;
+  }
+  #s4 .header .tag2 { font-size: 10px; font-weight: 700; color: var(--teal); }
+  #s4 .header h2 { font-size: 19px; font-weight: 900; color: var(--teal-dark); }
+  #s4 .body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 10px 14px 4px;
+  }
+  #s4 .left-panel {
+    background: white;
+    border-top: 4px solid var(--teal);
+    border-radius: 4px;
+    padding: 14px;
+  }
+  #s4 .feature {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  #s4 .feature-bar {
+    width: 4px;
+    flex-shrink: 0;
+    background: var(--teal);
+    border-radius: 2px;
+  }
+  #s4 .feature h4 { font-size: 12px; font-weight: 700; color: var(--teal-dark); margin-bottom: 2px; }
+  #s4 .feature p  { font-size: 10px; color: var(--gray-mid); }
+  #s4 .right-panel {
+    background: var(--teal-dark);
+    border-radius: 4px;
+    padding: 14px;
+  }
+  #s4 .right-panel h3 {
+    font-size: 12px; font-weight: 700;
+    color: #7ED8CF; margin-bottom: 14px;
+  }
+  #s4 .stat-item { margin-bottom: 12px; }
+  #s4 .stat-item .label { font-size: 10px; color: #B2E0DB; margin-bottom: 2px; }
+  #s4 .stat-item .value { font-size: 15px; font-weight: 700; color: white; }
+  #s4 .stat-bar { width: 3px; height: 42px; background: var(--coral); float: left; margin-right: 10px; }
+
+  /* ════════════════════════
+     S5 — AIコンシェルジュ
+  ════════════════════════ */
+  #s5 {
+    background: var(--teal-dark);
+    flex-direction: row;
+    overflow: hidden;
+  }
+  #s5 .left {
+    width: 55%;
+    padding: 30px 28px 32px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+  }
+  #s5 .accent-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px; background: var(--coral);
+  }
+  #s5 .tag3 { font-size: 10px; font-weight: 700; color: var(--coral); letter-spacing: 0.1em; }
+  #s5 h2 { font-size: clamp(20px,3vw,32px); font-weight: 900; color: white; line-height: 1.3; margin: 6px 0 14px; }
+  #s5 .cred-box {
+    background: #075E54;
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+  }
+  #s5 .cred-label { font-size: 10px; font-weight: 700; color: #7ED8CF; margin-bottom: 6px; }
+  #s5 .cred-stats { display: flex; gap: 20px; }
+  #s5 .cred-stat .num { font-size: 26px; font-weight: 900; color: white; line-height: 1; }
+  #s5 .cred-stat .unit { font-size: 11px; color: #B2E0DB; }
+  #s5 .use-cases {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  }
+  #s5 .uc {
+    background: #0A7A6C;
+    border-radius: 4px;
+    padding: 7px 10px;
+    font-size: 11px; color: white;
+  }
+  #s5 .right {
+    width: 45%;
+    position: relative;
+    overflow: hidden;
+  }
+  #s5 .circle {
+    position: absolute;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: var(--teal);
+    top: -40px; right: -50px;
+  }
+  #s5 .disclaimer {
+    position: absolute;
+    bottom: 34px; left: 36px; right: 0;
+    font-size: 9px; color: #7ED8CF; font-style: italic;
+  }
+
+  /* ════════════════════════
+     S6 — コミュニティ
+  ════════════════════════ */
+  #s6 {
+    background: var(--off-white);
+    flex-direction: column;
+  }
+  #s6 .header {
+    background: white;
+    border-left: 5px solid var(--teal);
+    padding: 10px 20px; flex-shrink: 0;
+  }
+  #s6 .header .tag4 { font-size: 10px; font-weight: 700; color: var(--teal); }
+  #s6 .header h2 { font-size: 18px; font-weight: 900; color: var(--teal-dark); }
+  #s6 .body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 10px 14px 4px;
+  }
+  #s6 .left-panel {
+    background: var(--teal-dark);
+    border-radius: 4px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  #s6 .left-panel h3 { font-size: 15px; font-weight: 900; color: white; margin-bottom: 8px; }
+  #s6 .left-panel .desc { font-size: 11px; color: #B2E0DB; line-height: 1.6; margin-bottom: 14px; }
+  #s6 .feat-list { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+  #s6 .feat-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: white; }
+  #s6 .feat-dot { width: 4px; height: 20px; background: var(--coral); flex-shrink: 0; border-radius: 2px; }
+  #s6 .quotes { display: flex; flex-direction: column; gap: 10px; }
+  #s6 .quote-card {
+    background: white;
+    border-top: 4px solid var(--teal);
+    border-radius: 4px;
+    padding: 12px 14px;
+    flex: 1;
+  }
+  #s6 .quote-mark { font-size: 24px; color: var(--teal-light); line-height: 1; }
+  #s6 .quote-text { font-size: 13px; color: var(--gray-dark); line-height: 1.5; margin: 4px 0; }
+  #s6 .quote-attr { font-size: 10px; color: var(--gray-mid); font-style: italic; }
+  #s6 .img-note { font-size: 8px; color: var(--gray-mid); font-style: italic; text-align: right; padding: 0 14px 4px; }
+
+  /* ════════════════════════
+     S7 — セカンドオピニオン
+  ════════════════════════ */
+  #s7 {
+    background: white;
+    flex-direction: column;
+  }
+  #s7 .header {
+    background: var(--teal-dark);
+    border-left: 5px solid var(--coral);
+    padding: 10px 20px; flex-shrink: 0;
+  }
+  #s7 .header .tag5 { font-size: 10px; font-weight: 700; color: var(--coral); }
+  #s7 .header h2 { font-size: 19px; font-weight: 900; color: white; }
+  #s7 .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 14px 16px 8px;
+    flex-shrink: 0;
+  }
+  #s7 .step {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 4px;
+  }
+  #s7 .step .num { font-size: 10px; font-weight: 700; margin-bottom: 4px; }
+  #s7 .step .label { font-size: 12px; font-weight: 700; line-height: 1.4; }
+  #s7 .step.active { background: var(--teal); }
+  #s7 .step.active .num  { color: rgba(255,255,255,0.7); }
+  #s7 .step.active .label { color: white; }
+  #s7 .step.inactive { background: var(--gray-light); }
+  #s7 .step.inactive .num  { color: var(--teal); }
+  #s7 .step.inactive .label { color: var(--teal-dark); }
+  #s7 .arrow { color: var(--teal); font-size: 18px; font-weight: 700; padding: 0 4px; flex-shrink: 0; }
+  #s7 .benefits-box {
+    background: var(--gray-light);
+    margin: 0 16px 4px;
+    border-radius: 4px;
+    padding: 12px 14px;
+    flex: 1;
+  }
+  #s7 .ben-title { font-size: 12px; font-weight: 700; color: var(--teal-dark); margin-bottom: 10px; }
+  #s7 .ben-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  #s7 .ben-item {}
+  #s7 .ben-badge {
+    display: inline-block;
+    background: var(--teal);
+    color: white;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  #s7 .ben-text { font-size: 10px; color: var(--gray-mid); line-height: 1.5; }
+
+  /* ════════════════════════
+     S8 — 連携のご提案
+  ════════════════════════ */
+  #s8 {
+    background: var(--off-white);
+    flex-direction: column;
+  }
+  #s8 .header {
+    background: white;
+    border-left: 5px solid var(--teal);
+    padding: 10px 20px; flex-shrink: 0;
+  }
+  #s8 .header h2 { font-size: 18px; font-weight: 900; color: var(--teal-dark); }
+  #s8 .cards {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px 14px 4px;
+  }
+  #s8 .card {
+    background: white;
+    border-top: 4px solid var(--teal);
+    border-radius: 4px;
+    padding: 12px 10px;
+  }
+  #s8 .card .icon { font-size: 18px; margin-bottom: 4px; }
+  #s8 .card h3 { font-size: 12px; font-weight: 700; color: var(--teal-dark); line-height: 1.4; margin-bottom: 10px; }
+  #s8 .card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  #s8 .card li {
+    display: flex; gap: 6px;
+    font-size: 10px; color: var(--gray-mid); line-height: 1.4;
+  }
+  #s8 .card li::before {
+    content: '';
+    width: 3px; min-height: 32px;
+    background: var(--coral);
+    flex-shrink: 0;
+    border-radius: 2px;
+    display: block;
+  }
+  #s8 .bottom-note {
+    text-align: center;
+    font-size: 10px; font-weight: 700; color: var(--teal);
+    padding: 5px;
+  }
+
+  /* ════════════════════════
+     S9 — 安心・安全
+  ════════════════════════ */
+  #s9 {
+    background: white;
+    flex-direction: column;
+  }
+  #s9 .header {
+    background: var(--teal-dark);
+    border-left: 5px solid var(--coral);
+    padding: 12px 20px; flex-shrink: 0;
+  }
+  #s9 .header h2 { font-size: 21px; font-weight: 900; color: white; }
+  #s9 .grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    padding: 10px 14px 4px;
+  }
+  #s9 .trust-card {
+    background: var(--gray-light);
+    border-top: 4px solid var(--teal);
+    border-radius: 4px;
+    padding: 12px 14px;
+  }
+  #s9 .trust-card .tc-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+  }
+  #s9 .num-badge {
+    width: 26px; height: 26px;
+    background: var(--teal);
+    color: white;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 3px; flex-shrink: 0;
+  }
+  #s9 .trust-card h3 { font-size: 13px; font-weight: 700; color: var(--teal-dark); }
+  #s9 .trust-card p  { font-size: 10px; color: var(--gray-mid); line-height: 1.6; }
+
+  /* ════════════════════════
+     S10 — お問い合わせ
+  ════════════════════════ */
+  #s10 {
+    background: var(--teal-dark);
+    flex-direction: row;
+    overflow: hidden;
+  }
+  #s10 .left {
+    width: 58%;
+    padding: 30px 28px 30px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+  }
+  #s10 .accent-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px; background: var(--coral);
+  }
+  #s10 h2 { font-size: clamp(22px, 3.5vw, 36px); font-weight: 900; color: white; line-height: 1.3; }
+  #s10 .message { font-size: 12px; color: #B2E0DB; line-height: 1.7; margin: 10px 0; }
+  #s10 .profile-box {
+    background: #075E54;
+    border-radius: 4px;
+    padding: 12px 14px;
+  }
+  #s10 .pname { font-size: 18px; font-weight: 900; color: white; margin-bottom: 6px; }
+  #s10 .pmeta { font-size: 10px; color: #9ECEC9; line-height: 1.8; }
+  #s10 .contacts { display: flex; flex-direction: column; gap: 5px; }
+  #s10 .contact-item { font-size: 12px; color: white; display: flex; align-items: center; gap: 8px; }
+  #s10 .right {
+    width: 42%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #s10 .circle1 {
+    position: absolute;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: var(--teal);
+    top: -50px; right: -60px;
+  }
+  #s10 .circle2 {
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: #0A7A6C;
+    bottom: -30px; right: 30px;
+  }
+  #s10 .tagline {
+    position: absolute;
+    bottom: 34px; left: 0; right: 0;
+    text-align: center;
+    font-size: 11px; font-style: italic; font-weight: 700;
+    color: #7ED8CF;
+    z-index: 2;
+  }
+</style>
+<script>
+  var _total = 10;
+  var _current = 0;
+  var _slides, _dots, _counter;
+
+  function changeSlide(dir) {
+    var next = _current + dir;
+    if (next >= 0 && next < _total) goTo(next);
+  }
+
+  function goTo(n) {
+    _slides[_current].classList.remove('active');
+    _dots.children[_current].classList.remove('active');
+    _current = n;
+    _slides[_current].classList.add('active');
+    _dots.children[_current].classList.add('active');
+    _counter.textContent = (_current + 1) + ' / ' + _total;
+    document.getElementById('prevBtn').disabled = (_current === 0);
+    document.getElementById('nextBtn').disabled = (_current === _total - 1);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    _slides  = document.querySelectorAll('.slide');
+    _dots    = document.getElementById('dots');
+    _counter = document.getElementById('counter');
+
+    for (var i = 0; i < _total; i++) {
+      (function(idx) {
+        var d = document.createElement('div');
+        d.className = 'dot' + (idx === 0 ? ' active' : '');
+        d.onclick = function() { goTo(idx); };
+        _dots.appendChild(d);
+      })(i);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft')  changeSlide(-1);
+    });
+  });
+</script>
+</head>
+<body>
+<!-- Back to corporate site -->
+<div style="position:fixed;top:0;left:0;width:100%;z-index:9999;background:rgba(5,10,15,0.92);backdrop-filter:blur(15px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 5%;display:flex;align-items:center;gap:16px;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;color:#00a0e9;text-decoration:none;font-family:'Noto Sans JP',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:1px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    グローバルメディカル トップへ戻る
+  </a>
+</div>
+<div style="height:50px;"></div>
+
+
+<div class="deck-wrap">
+  <div class="slide-counter" id="counter">1 / 10</div>
+
+  <div class="slide-viewport">
+
+    <!-- S1 表紙 -->
+    <div class="slide active" id="s1">
+      <div class="accent-bar"></div>
+      <div class="left">
+        <div>
+          <div class="brand">KARTE</div>
+          <h1>あなたの治療を、<br>あなたが選ぶ時代へ。</h1>
+          <p class="subtitle">患者のための医療AIプラットフォーム</p>
+        </div>
+        <div>
+          <div class="divider"></div>
+          <div class="name">柴田 幸司</div>
+          <div class="meta">放射線診断専門医　｜　26年・20万件の画像診断実績<br>Globalmedical 代表取締役</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+      </div>
+      <div class="footer">
+        <span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span>
+        <span>1/10</span>
+      </div>
+    </div>
+
+    <!-- S2 患者の現実 -->
+    <div class="slide" id="s2">
+      <div class="header"><h2>患者さんが直面している現実</h2></div>
+      <div class="cards">
+        <div class="card">
+          <div class="emoji">😔</div>
+          <div class="q">「先生の説明が難しくてわからない」</div>
+          <div class="a">専門用語が多く、治療方針を理解できないまま同意している</div>
+        </div>
+        <div class="card">
+          <div class="emoji">😟</div>
+          <div class="q">「自分の検査データがどこにあるか不明」</div>
+          <div class="a">転院のたびにデータが散逸し、病歴をゼロから説明する</div>
+        </div>
+        <div class="card">
+          <div class="emoji">😰</div>
+          <div class="q">「セカンドオピニオンを受けたいが方法がわからない」</div>
+          <div class="a">紹介状の手続きが複雑で踏み出せない患者が多数</div>
+        </div>
+        <div class="card">
+          <div class="emoji">😞</div>
+          <div class="q">「同じ病気の人と話したい」</div>
+          <div class="a">孤独な闘病。信頼できる仲間に出会う場所がない</div>
+        </div>
+      </div>
+      <div class="bottom-note">KARTEは、これらすべての課題に向き合います。</div>
+      <div class="footer"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>2/10</span></div>
+    </div>
+
+    <!-- S3 KARTEとは -->
+    <div class="slide" id="s3">
+      <div class="header"><h2>KARTEとは — 3つの柱でできたプラットフォーム</h2></div>
+      <div class="body">
+        <div class="karte-badge">KARTE</div>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="icon">📋</div>
+            <h3>PHR 医療データ管理</h3>
+            <p>自分の検査・画像データをスマホで一元管理</p>
+          </div>
+          <div class="pillar">
+            <div class="icon">🤖</div>
+            <h3>AI コンシェルジュ</h3>
+            <p>26年の専門医知見による24時間AIサポート</p>
+          </div>
+          <div class="pillar">
+            <div class="icon">👥</div>
+            <h3>コミュニティ</h3>
+            <p>同じ病気の仲間と安全につながる場</p>
+          </div>
+        </div>
+        <div class="plus-note">＋ 病歴要約・セカンドオピニオン支援　｜　オンラインクリニック連携（構想中）</div>
+      </div>
+      <div class="footer"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>3/10</span></div>
+    </div>
+
+    <!-- S4 PHR -->
+    <div class="slide" id="s4">
+      <div class="header">
+        <div class="tag2">機能①</div>
+        <h2>医療データをあなたの手に（PHR）</h2>
+      </div>
+      <div class="body">
+        <div class="left-panel">
+          <div class="feature"><div class="feature-bar"></div><div><h4>DICOM対応画像管理</h4><p>CT・MRI・レントゲンなどの医療画像をスマホで閲覧・管理</p></div></div>
+          <div class="feature"><div class="feature-bar"></div><div><h4>検査データの一元化</h4><p>血液検査・処方履歴など全ての医療記録を一箇所に</p></div></div>
+          <div class="feature"><div class="feature-bar"></div><div><h4>タイムライン表示</h4><p>治療の経過を時系列で把握。転院時もスムーズに</p></div></div>
+          <div class="feature"><div class="feature-bar"></div><div><h4>セキュアな共有</h4><p>担当医・家族への安全な情報共有が可能</p></div></div>
+        </div>
+        <div class="right-panel">
+          <h3>患者が抱えるデータ管理の現実</h3>
+          <div style="display:flex;gap:10px;margin-bottom:12px">
+            <div style="width:3px;background:#F26A4F;border-radius:2px;flex-shrink:0"></div>
+            <div><div style="font-size:10px;color:#B2E0DB;margin-bottom:2px">複数の医療機関に</div><div style="font-size:14px;font-weight:700;color:white">データが分散</div></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-bottom:12px">
+            <div style="width:3px;background:#F26A4F;border-radius:2px;flex-shrink:0"></div>
+            <div><div style="font-size:10px;color:#B2E0DB;margin-bottom:2px">転院のたびに</div><div style="font-size:14px;font-weight:700;color:white">検査を繰り返す</div></div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <div style="width:3px;background:#F26A4F;border-radius:2px;flex-shrink:0"></div>
+            <div><div style="font-size:10px;color:#B2E0DB;margin-bottom:2px">緊急時に</div><div style="font-size:14px;font-weight:700;color:white">自分の記録が出てこない</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>4/10</span></div>
+    </div>
+
+    <!-- S5 AIコンシェルジュ -->
+    <div class="slide" id="s5">
+      <div class="accent-bar"></div>
+      <div class="left">
+        <div>
+          <div class="tag3">機能②</div>
+          <h2>24時間、あなたのそばに。<br>AIコンシェルジュ</h2>
+        </div>
+        <div class="cred-box">
+          <div class="cred-label">AIの「先生」は、現役放射線診断専門医</div>
+          <div class="cred-stats">
+            <div class="cred-stat"><div class="num">26年</div><div class="unit">の臨床経験</div></div>
+            <div class="cred-stat"><div class="num">20万件</div><div class="unit">超の読影実績</div></div>
+          </div>
+        </div>
+        <div class="use-cases">
+          <div class="uc">💬 「この症状、受診すべき？」</div>
+          <div class="uc">🏥 「どの科に行けばいい？」</div>
+          <div class="uc">📄 「検査結果の意味が知りたい」</div>
+          <div class="uc">💊 「薬の副作用が心配」</div>
+        </div>
+        <div class="disclaimer">※ AIの回答は医師が監修。必要に応じてオンラインクリニック受診をご案内します。</div>
+      </div>
+      <div class="right"><div class="circle"></div></div>
+      <div class="footer" style="background:#054D44;color:#7ED8CF"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>5/10</span></div>
+    </div>
+
+    <!-- S6 コミュニティ -->
+    <div class="slide" id="s6">
+      <div class="header">
+        <div class="tag4">機能③</div>
+        <h2>同じ病気の仲間とつながる（患者コミュニティ）</h2>
+      </div>
+      <div class="body">
+        <div class="left-panel">
+          <h3>孤独な闘病に、終止符を。</h3>
+          <p class="desc">病気になったとき、誰もが感じる孤独。「自分だけが辛い」という感覚は、同じ経験を持つ仲間との出会いで和らぎます。</p>
+          <div class="feat-list">
+            <div class="feat-item"><div class="feat-dot"></div>疾患別コミュニティへの参加</div>
+            <div class="feat-item"><div class="feat-dot"></div>闘病記の投稿・共有</div>
+            <div class="feat-item"><div class="feat-dot"></div>匿名設定で安心して発信</div>
+            <div class="feat-item"><div class="feat-dot"></div>医師によるコメント・補足</div>
+          </div>
+        </div>
+        <div class="quotes">
+          <div class="quote-card">
+            <div class="quote-mark">❝</div>
+            <div class="quote-text">同じ治療を経験した方の話を聞けて救われました</div>
+            <div class="quote-attr">— 乳がん　50代女性</div>
+          </div>
+          <div class="quote-card">
+            <div class="quote-mark">❝</div>
+            <div class="quote-text">主治医に聞けなかった疑問をここで解決できた</div>
+            <div class="quote-attr">— 糖尿病　40代男性</div>
+          </div>
+        </div>
+      </div>
+      <div class="img-note">※ ユーザーの声はイメージです</div>
+      <div class="footer"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>6/10</span></div>
+    </div>
+
+    <!-- S7 セカンドオピニオン -->
+    <div class="slide" id="s7">
+      <div class="header">
+        <div class="tag5">機能④</div>
+        <h2>セカンドオピニオンをもっとスムーズに</h2>
+      </div>
+      <div class="flow">
+        <div class="step inactive"><div class="num">01</div><div class="label">病歴・画像を<br>アプリで整理</div></div>
+        <div class="arrow">→</div>
+        <div class="step active"><div class="num">02</div><div class="label">AIが病歴要約を<br>自動生成</div></div>
+        <div class="arrow">→</div>
+        <div class="step active"><div class="num">03</div><div class="label">担当医に紹介状<br>作成を依頼</div></div>
+        <div class="arrow">→</div>
+        <div class="step inactive"><div class="num">04</div><div class="label">専門医へ<br>スムーズに相談</div></div>
+      </div>
+      <div class="benefits-box">
+        <div class="ben-title">KARTEがあることで変わること</div>
+        <div class="ben-grid">
+          <div class="ben-item"><div class="ben-badge">患者</div><div class="ben-text">「何をどう持参すればいいか」が明確になり、受診の心理的ハードルが下がる</div></div>
+          <div class="ben-item"><div class="ben-badge">医療機関</div><div class="ben-text">整理された病歴が事前に把握でき、診療の質と効率が向上する</div></div>
+          <div class="ben-item"><div class="ben-badge">在宅医療</div><div class="ben-text">多職種が患者情報をリアルタイムで共有。急変時の対応がスムーズに</div></div>
+        </div>
+      </div>
+      <div class="footer"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>7/10</span></div>
+    </div>
+
+    <!-- S8 連携のご提案 -->
+    <div class="slide" id="s8">
+      <div class="header"><h2>連携のご提案 — 一緒に患者さんを支えましょう</h2></div>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">👥</div>
+          <h3>患者団体・コミュニティ</h3>
+          <ul>
+            <li>KARTEコミュニティへの会員誘導・情報発信</li>
+            <li>患者向けセミナーでの共同開催</li>
+            <li>団体ニュースレターへのAI医療情報提供</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="icon">🏥</div>
+          <h3>医療機関<br>クリニック・病院</h3>
+          <ul>
+            <li>受診患者へのアプリ導入サポート</li>
+            <li>電子カルテとの将来的な連携</li>
+            <li>病歴要約による外来効率化</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="icon">🏠</div>
+          <h3>在宅医療グループ</h3>
+          <ul>
+            <li>在宅患者の情報を多職種でリアルタイム共有</li>
+            <li>家族への病状説明をAIがサポート</li>
+            <li>緊急時の病歴参照をスムーズに</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="icon">💊</div>
+          <h3>調剤薬局</h3>
+          <ul>
+            <li>お薬手帳との連携・統合</li>
+            <li>処方内容をAIがわかりやすく解説</li>
+            <li>薬局店頭でのアプリ紹介</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-note">まずはお気軽にご相談ください。貴団体・貴機関に合わせた連携プランをご提案します。</div>
+      <div class="footer"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>8/10</span></div>
+    </div>
+
+    <!-- S9 安心・安全 -->
+    <div class="slide" id="s9">
+      <div class="header"><h2>安心・安全・信頼の根拠</h2></div>
+      <div class="grid">
+        <div class="trust-card">
+          <div class="tc-header"><div class="num-badge">1</div><h3>現役医師による監修</h3></div>
+          <p>代表の柴田幸司（放射線診断専門医）が全コンテンツを監修。26年・20万件超の臨床実績に基づくAIです。</p>
+        </div>
+        <div class="trust-card">
+          <div class="tc-header"><div class="num-badge">2</div><h3>個人情報・セキュリティ</h3></div>
+          <p>医療データは暗号化して保管。第三者への無断提供は一切行いません。患者自身がデータの共有範囲をコントロールできます。</p>
+        </div>
+        <div class="trust-card">
+          <div class="tc-header"><div class="num-badge">3</div><h3>医療広告ガイドライン遵守</h3></div>
+          <p>厚生労働省の医療広告ガイドラインに準拠した情報提供を徹底。弁護士・専門家によるリーガルチェックを実施予定。</p>
+        </div>
+        <div class="trust-card">
+          <div class="tc-header"><div class="num-badge">4</div><h3>ものづくり補助金 採択</h3></div>
+          <p>国の審査機関によって事業の革新性・妥当性が公的に認定。750万円の補助金を採択済みです。</p>
+        </div>
+      </div>
+      <div class="footer"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>9/10</span></div>
+    </div>
+
+    <!-- S10 お問い合わせ -->
+    <div class="slide" id="s10">
+      <div class="accent-bar"></div>
+      <div class="left">
+        <div>
+          <h2>ぜひ一緒に<br>取り組みませんか</h2>
+          <p class="message">患者さんの「医療主権」を守るために、<br>皆様のお力をお借りしたいと考えています。</p>
+        </div>
+        <div class="profile-box">
+          <div class="pname">柴田 幸司</div>
+          <div class="pmeta">
+            放射線診断専門医　｜　Globalmedical 代表取締役<br>
+            26年間・20万件超の画像診断に従事<br>
+            ものづくり補助金 採択済み
+          </div>
+        </div>
+        <div class="contacts">
+          <div class="contact-item">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c1a0a5aca8af81a6adaea3a0adaca4a5a8a2a0adefabb1">[email&#160;protected]</a></div>
+          <div class="contact-item">🌐 <a href="https://globalmedical.jp" style="color:inherit;">globalmedical.jp</a></div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+      </div>
+      <div class="tagline">「医療の主役を、再び患者の手に。」</div>
+      <div class="footer" style="background:#054D44;color:#7ED8CF"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>10/10</span></div>
+    </div>
+
+  </div><!-- /slide-viewport -->
+
+  <div class="nav">
+    <button id="prevBtn" onclick="changeSlide(-1)" disabled>← 前へ</button>
+    <div class="dot-
