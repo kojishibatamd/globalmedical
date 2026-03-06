@@ -679,46 +679,45 @@
   }
 </style>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+  var _total = 10;
+  var _current = 0;
+  var _slides, _dots, _counter;
 
-  const total = 10;
-  let current = 0;
-
-  const slides = document.querySelectorAll('.slide');
-  const dotsContainer = document.getElementById('dots');
-  const counter = document.getElementById('counter');
-
-  // Build dots
-  for (let i = 0; i < total; i++) {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => goTo(i);
-    dotsContainer.appendChild(d);
+  function changeSlide(dir) {
+    var next = _current + dir;
+    if (next >= 0 && next < _total) goTo(next);
   }
 
   function goTo(n) {
-    slides[current].classList.remove('active');
-    dotsContainer.children[current].classList.remove('active');
-    current = n;
-    slides[current].classList.add('active');
-    dotsContainer.children[current].classList.add('active');
-    counter.textContent = (current + 1) + ' / ' + total;
-    document.getElementById('prevBtn').disabled = current === 0;
-    document.getElementById('nextBtn').disabled = current === total - 1;
+    _slides[_current].classList.remove('active');
+    _dots.children[_current].classList.remove('active');
+    _current = n;
+    _slides[_current].classList.add('active');
+    _dots.children[_current].classList.add('active');
+    _counter.textContent = (_current + 1) + ' / ' + _total;
+    document.getElementById('prevBtn').disabled = (_current === 0);
+    document.getElementById('nextBtn').disabled = (_current === _total - 1);
   }
 
-  function changeSlide(dir) {
-    const next = current + dir;
-    if (next >= 0 && next < total) goTo(next);
-  }
+  document.addEventListener('DOMContentLoaded', function() {
+    _slides  = document.querySelectorAll('.slide');
+    _dots    = document.getElementById('dots');
+    _counter = document.getElementById('counter');
 
-  // Keyboard navigation
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') changeSlide(1);
-    if (e.key === 'ArrowLeft')  changeSlide(-1);
+    for (var i = 0; i < _total; i++) {
+      (function(idx) {
+        var d = document.createElement('div');
+        d.className = 'dot' + (idx === 0 ? ' active' : '');
+        d.onclick = function() { goTo(idx); };
+        _dots.appendChild(d);
+      })(i);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft')  changeSlide(-1);
+    });
   });
-
-});
 </script>
 </head>
 <body>
