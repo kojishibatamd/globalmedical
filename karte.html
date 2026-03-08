@@ -677,6 +677,99 @@
     color: #7ED8CF;
     z-index: 2;
   }
+
+  /* ══════════════════════════════════════
+     スマホ対応（幅600px以下）
+     16:9固定 → 縦スクロール可能に変更
+  ══════════════════════════════════════ */
+  @media (max-width: 600px) {
+
+    body { padding: 12px 8px; }
+
+    /* スライド枠：aspect-ratioを解除して高さ自動に */
+    .slide-viewport {
+      aspect-ratio: unset;
+      height: auto;
+      min-height: 420px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    /* スライド本体：position:absoluteをやめて通常フローに */
+    .slide {
+      position: relative;
+      inset: unset;
+      display: none;
+      width: 100%;
+      height: auto;
+      min-height: 420px;
+    }
+    .slide.active { display: flex; }
+
+    /* スライド1：縦並びに */
+    #s1 { flex-direction: column; padding: 20px 16px 40px; }
+    #s1 .left { width: 100%; padding-right: 0; padding-bottom: 16px; }
+    #s1 .right { width: 100%; display: flex; justify-content: center; }
+    #s1 .circle-bg { width: 180px; height: 180px; }
+    #s1 .inner-circle { width: 120px; height: 120px; }
+    #s1 .hero-title { font-size: clamp(22px, 6vw, 32px); }
+
+    /* スライド2：カードを1列に */
+    #s2 .cards { grid-template-columns: 1fr 1fr; gap: 8px; }
+    #s2 .card { padding: 10px 8px; }
+
+    /* スライド3：ピラーを2列に */
+    #s3 { flex-direction: column; padding: 16px 12px 40px; }
+    #s3 .pillars { grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    /* スライド4 */
+    #s4 { flex-direction: column; padding: 16px 12px 40px; }
+    #s4 .left { width: 100%; padding-right: 0; margin-bottom: 12px; }
+    #s4 .right { width: 100%; }
+
+    /* スライド5 */
+    #s5 { flex-direction: column; padding: 20px 16px 40px; }
+    #s5 .left { width: 100%; padding-right: 0; margin-bottom: 12px; }
+    #s5 .right { width: 100%; display: flex; justify-content: center; }
+    #s5 .circle-bg { width: 160px; height: 160px; }
+
+    /* スライド6 */
+    #s6 { flex-direction: column; padding: 16px 12px 40px; }
+    #s6 .left-panel { width: 100%; padding-right: 0; margin-bottom: 12px; }
+    #s6 .right-panel { width: 100%; }
+
+    /* スライド7 */
+    #s7 { flex-direction: column; padding: 16px 12px 40px; }
+    #s7 .left { width: 100%; padding-right: 0; margin-bottom: 12px; }
+    #s7 .right { width: 100%; }
+    #s7 .flow { flex-wrap: wrap; gap: 6px; }
+    #s7 .arrow { display: none; }
+
+    /* スライド8 */
+    #s8 .cards { grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    /* スライド9 */
+    #s9 { flex-direction: column; padding: 16px 12px 40px; }
+    #s9 .left { width: 100%; padding-right: 0; margin-bottom: 12px; }
+    #s9 .right { width: 100%; }
+
+    /* スライド10 */
+    #s10 { padding: 20px 16px 50px; }
+    #s10 .circle-bg { width: 200px; height: 200px; }
+    #s10 .inner-circle { width: 130px; height: 130px; }
+
+    /* フッター（スライド内）は相対配置に */
+    .footer {
+      position: relative;
+      bottom: unset; left: unset; right: unset;
+      margin-top: 12px;
+      border-radius: 0 0 6px 6px;
+    }
+
+    /* ナビボタンを大きく */
+    .nav button { padding: 10px 18px; font-size: 13px; }
+    .dot { width: 8px; height: 8px; }
+  }
 </style>
 <script>
   var _total = 10;
