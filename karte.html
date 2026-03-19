@@ -56,19 +56,67 @@
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   }
 
+  /* ── Progress bar ── */
+  .progress-bar {
+    position: absolute;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--coral);
+    z-index: 100;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ── Slide transitions ── */
   .slide {
     display: none;
     width: 100%;
     height: 100%;
     position: absolute;
     inset: 0;
-    animation: fadeIn 0.35s ease;
   }
-  .slide.active { display: flex; }
+  .slide.active {
+    display: flex;
+    animation: slideEnter 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .slide.exit-left {
+    display: flex;
+    animation: slideExitLeft 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+  }
+  .slide.exit-right {
+    display: flex;
+    animation: slideExitRight 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+  }
+  .slide.enter-from-right {
+    display: flex;
+    animation: slideEnterFromRight 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .slide.enter-from-left {
+    display: flex;
+    animation: slideEnterFromLeft 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
 
-  @keyframes fadeIn {
+  @keyframes slideEnter {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideEnterFromRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideEnterFromLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideExitLeft {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-40px); }
+  }
+  @keyframes slideExitRight {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(40px); }
   }
 
   /* ── Nav ── */
@@ -89,10 +137,11 @@
     cursor: pointer;
     font-family: 'Noto Sans JP', sans-serif;
     font-size: 14px;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.1s;
   }
-  .nav button:hover { background: rgba(255,255,255,0.22); }
-  .nav button:disabled { opacity: 0.3; cursor: default; }
+  .nav button:hover  { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+  .nav button:active { transform: translateY(0); }
+  .nav button:disabled { opacity: 0.3; cursor: default; transform: none; }
 
   .dot-nav {
     display: flex;
@@ -100,13 +149,19 @@
     align-items: center;
   }
   .dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
+    height: 7px;
+    border-radius: 4px;
     background: rgba(255,255,255,0.25);
     cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
+    transition: background 0.25s, width 0.25s, transform 0.2s;
+    width: 7px;
   }
-  .dot.active { background: var(--teal); transform: scale(1.4); }
+  .dot.active {
+    background: var(--coral);
+    width: 22px;
+    transform: none;
+  }
+  .dot:not(.active):hover { background: rgba(255,255,255,0.45); transform: scale(1.2); }
 
   /* ── Shared slide elements ── */
   .footer {
@@ -182,6 +237,9 @@
     width: 40%;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   #s1 .circle1 {
     position: absolute;
@@ -189,6 +247,7 @@
     border-radius: 50%;
     background: var(--teal);
     top: -80px; right: -60px;
+    opacity: 0.7;
   }
   #s1 .circle2 {
     position: absolute;
@@ -196,19 +255,36 @@
     border-radius: 50%;
     background: #0A7A6C;
     bottom: -40px; right: 20px;
+    opacity: 0.6;
   }
-  #s1 .phases {
+  #s1 .feature-cards {
     position: absolute;
-    bottom: 32px; left: 44px;
-    display: flex; gap: 8px;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px 12px 16px 8px;
+    z-index: 2;
   }
-  #s1 .phase-badge {
-    padding: 5px 12px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 700;
-    color: white;
+  #s1 .feat-card {
+    background: rgba(255,255,255,0.13);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(4px);
+    width: 100%;
+    max-width: 170px;
+    transition: transform 0.2s;
   }
+  #s1 .feat-card:nth-child(2) { margin-left: 16px; }
+  #s1 .feat-card .ficon { font-size: 18px; }
+  #s1 .feat-card .ftitle { font-size: 11px; font-weight: 700; color: white; }
+  #s1 .feat-card .fdesc  { font-size: 9px; color: #B2E0DB; margin-top: 1px; }
 
   /* ════════════════════════
      S2 — 患者の現実
@@ -238,7 +314,21 @@
     padding: 12px 10px;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
   }
+  #s2 .card .stat-badge {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: var(--teal);
+    color: white;
+    font-size: 13px;
+    font-weight: 900;
+    padding: 2px 7px;
+    border-radius: 3px;
+    line-height: 1.4;
+  }
+  #s2 .card .stat-badge span { font-size: 8px; font-weight: 500; display: block; text-align: center; }
   #s2 .card .emoji { font-size: 22px; margin-bottom: 6px; }
   #s2 .card .q {
     font-size: 12px;
@@ -246,6 +336,7 @@
     color: var(--teal-dark);
     line-height: 1.4;
     margin-bottom: 8px;
+    padding-right: 42px;
   }
   #s2 .card .a { font-size: 10px; color: var(--gray-mid); line-height: 1.5; }
   #s2 .bottom-note {
@@ -280,13 +371,14 @@
     gap: 10px;
   }
   #s3 .karte-badge {
-    background: var(--teal);
+    background: linear-gradient(135deg, var(--teal), var(--teal-dark));
     color: white;
     font-size: 18px;
     font-weight: 900;
     padding: 7px 32px;
     border-radius: 4px;
     letter-spacing: 0.1em;
+    box-shadow: 0 4px 12px rgba(13,154,138,0.3);
   }
   #s3 .pillars {
     display: grid;
@@ -299,7 +391,9 @@
     border-top: 4px solid var(--teal);
     border-radius: 4px;
     padding: 12px 14px;
+    transition: box-shadow 0.2s;
   }
+  #s3 .pillar:hover { box-shadow: 0 4px 16px rgba(13,154,138,0.18); }
   #s3 .pillar .icon { font-size: 20px; margin-bottom: 6px; }
   #s3 .pillar h3 { font-size: 13px; font-weight: 700; color: var(--teal-dark); margin-bottom: 4px; }
   #s3 .pillar p { font-size: 10px; color: var(--gray-mid); line-height: 1.5; }
@@ -410,6 +504,9 @@
     width: 45%;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   #s5 .circle {
     position: absolute;
@@ -417,6 +514,45 @@
     border-radius: 50%;
     background: var(--teal);
     top: -40px; right: -50px;
+    opacity: 0.5;
+  }
+  /* Chat mockup */
+  #s5 .chat-ui {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 16px 16px 40px 12px;
+    gap: 8px;
+    z-index: 2;
+  }
+  #s5 .chat-bubble {
+    max-width: 88%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 10.5px;
+    line-height: 1.5;
+  }
+  #s5 .chat-bubble.user {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border-bottom-right-radius: 2px;
+    align-self: flex-end;
+  }
+  #s5 .chat-bubble.ai {
+    background: rgba(255,255,255,0.95);
+    color: var(--gray-dark);
+    border-bottom-left-radius: 2px;
+    align-self: flex-start;
+  }
+  #s5 .chat-bubble.ai strong { color: var(--teal-dark); }
+  #s5 .chat-time {
+    font-size: 8px;
+    color: rgba(255,255,255,0.4);
+    text-align: right;
+    width: 100%;
   }
   #s5 .disclaimer {
     position: absolute;
@@ -661,6 +797,7 @@
     border-radius: 50%;
     background: var(--teal);
     top: -50px; right: -60px;
+    opacity: 0.6;
   }
   #s10 .circle2 {
     position: absolute;
@@ -668,7 +805,32 @@
     border-radius: 50%;
     background: #0A7A6C;
     bottom: -30px; right: 30px;
+    opacity: 0.7;
   }
+  #s10 .right-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 12px 40px;
+    z-index: 2;
+  }
+  #s10 .achievement-card {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 8px 14px;
+    text-align: center;
+    width: 100%;
+    max-width: 165px;
+    backdrop-filter: blur(4px);
+  }
+  #s10 .achievement-card .ach-num  { font-size: 20px; font-weight: 900; color: white; }
+  #s10 .achievement-card .ach-unit { font-size: 9px; color: #B2E0DB; }
+  #s10 .achievement-card .ach-label{ font-size: 9px; color: #7ED8CF; font-weight: 700; margin-top: 2px; }
   #s10 .tagline {
     position: absolute;
     bottom: 34px; left: 0; right: 0;
@@ -680,13 +842,9 @@
 
   /* ══════════════════════════════════════
      スマホ対応（幅600px以下）
-     16:9固定 → 縦スクロール可能に変更
   ══════════════════════════════════════ */
   @media (max-width: 600px) {
-
     body { padding: 12px 8px; }
-
-    /* スライド枠：aspect-ratioを解除して高さ自動に */
     .slide-viewport {
       aspect-ratio: unset;
       height: auto;
@@ -694,8 +852,6 @@
       overflow-y: auto;
       overflow-x: hidden;
     }
-
-    /* スライド本体：position:absoluteをやめて通常フローに */
     .slide {
       position: relative;
       inset: unset;
@@ -705,76 +861,47 @@
       min-height: 420px;
     }
     .slide.active { display: flex; }
-
-    /* スライド1：縦並びに */
+    .slide.exit-left, .slide.exit-right,
+    .slide.enter-from-right, .slide.enter-from-left {
+      animation: none;
+    }
     #s1 { flex-direction: column; padding: 20px 16px 40px; }
     #s1 .left { width: 100%; padding-right: 0; padding-bottom: 16px; }
-    #s1 .right { width: 100%; display: flex; justify-content: center; }
-    #s1 .circle-bg { width: 180px; height: 180px; }
-    #s1 .inner-circle { width: 120px; height: 120px; }
-    #s1 .hero-title { font-size: clamp(22px, 6vw, 32px); }
-
-    /* スライド2：カードを1列に */
+    #s1 .right { width: 100%; min-height: 160px; }
     #s2 .cards { grid-template-columns: 1fr 1fr; gap: 8px; }
     #s2 .card { padding: 10px 8px; }
-
-    /* スライド3：ピラーを2列に */
     #s3 { flex-direction: column; padding: 16px 12px 40px; }
     #s3 .pillars { grid-template-columns: 1fr 1fr; gap: 8px; }
-
-    /* スライド4 */
     #s4 { flex-direction: column; padding: 16px 12px 40px; }
-    #s4 .left { width: 100%; padding-right: 0; margin-bottom: 12px; }
-    #s4 .right { width: 100%; }
-
-    /* スライド5 */
     #s5 { flex-direction: column; padding: 20px 16px 40px; }
     #s5 .left { width: 100%; padding-right: 0; margin-bottom: 12px; }
-    #s5 .right { width: 100%; display: flex; justify-content: center; }
-    #s5 .circle-bg { width: 160px; height: 160px; }
-
-    /* スライド6 */
+    #s5 .right { width: 100%; min-height: 180px; }
     #s6 { flex-direction: column; padding: 16px 12px 40px; }
-    #s6 .left-panel { width: 100%; padding-right: 0; margin-bottom: 12px; }
-    #s6 .right-panel { width: 100%; }
-
-    /* スライド7 */
+    #s6 .left-panel { width: 100%; }
     #s7 { flex-direction: column; padding: 16px 12px 40px; }
-    #s7 .left { width: 100%; padding-right: 0; margin-bottom: 12px; }
-    #s7 .right { width: 100%; }
     #s7 .flow { flex-wrap: wrap; gap: 6px; }
     #s7 .arrow { display: none; }
-
-    /* スライド8 */
     #s8 .cards { grid-template-columns: 1fr 1fr; gap: 8px; }
-
-    /* スライド9 */
     #s9 { flex-direction: column; padding: 16px 12px 40px; }
-    #s9 .left { width: 100%; padding-right: 0; margin-bottom: 12px; }
-    #s9 .right { width: 100%; }
-
-    /* スライド10 */
-    #s10 { padding: 20px 16px 50px; }
-    #s10 .circle-bg { width: 200px; height: 200px; }
-    #s10 .inner-circle { width: 130px; height: 130px; }
-
-    /* フッター（スライド内）は相対配置に */
+    #s10 { flex-direction: column; }
+    #s10 .left { width: 100%; }
+    #s10 .right { width: 100%; min-height: 160px; }
     .footer {
       position: relative;
       bottom: unset; left: unset; right: unset;
       margin-top: 12px;
       border-radius: 0 0 6px 6px;
     }
-
-    /* ナビボタンを大きく */
     .nav button { padding: 10px 18px; font-size: 13px; }
     .dot { width: 8px; height: 8px; }
+    .dot.active { width: 8px; }
   }
 </style>
 <script>
   var _total = 10;
   var _current = 0;
-  var _slides, _dots, _counter;
+  var _slides, _dots, _counter, _progressBar;
+  var _isAnimating = false;
 
   function changeSlide(dir) {
     var next = _current + dir;
@@ -782,21 +909,56 @@
   }
 
   function goTo(n) {
-    _slides[_current].classList.remove('active');
-    _dots.children[_current].classList.remove('active');
+    if (_isAnimating || n === _current) return;
+    _isAnimating = true;
+
+    var prev = _current;
+    var dir  = n > prev ? 1 : -1;
+
+    var prevSlide = _slides[prev];
+    var nextSlide = _slides[n];
+
+    // Exit animation for current slide
+    prevSlide.classList.remove('active');
+    prevSlide.classList.add(dir === 1 ? 'exit-left' : 'exit-right');
+
+    // Enter animation for next slide
+    nextSlide.classList.add(dir === 1 ? 'enter-from-right' : 'enter-from-left');
+
     _current = n;
-    _slides[_current].classList.add('active');
-    _dots.children[_current].classList.add('active');
+
+    // Update dots
+    _dots.children[prev].classList.remove('active');
+    _dots.children[n].classList.add('active');
+
+    // Update counter
     _counter.textContent = (_current + 1) + ' / ' + _total;
+
+    // Update progress bar
+    _progressBar.style.width = ((_current + 1) / _total * 100) + '%';
+
+    // Update buttons
     document.getElementById('prevBtn').disabled = (_current === 0);
     document.getElementById('nextBtn').disabled = (_current === _total - 1);
+
+    setTimeout(function() {
+      prevSlide.classList.remove('exit-left', 'exit-right');
+      nextSlide.classList.remove('enter-from-right', 'enter-from-left');
+      nextSlide.classList.add('active');
+      _isAnimating = false;
+    }, 380);
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    _slides  = document.querySelectorAll('.slide');
-    _dots    = document.getElementById('dots');
-    _counter = document.getElementById('counter');
+    _slides      = document.querySelectorAll('.slide');
+    _dots        = document.getElementById('dots');
+    _counter     = document.getElementById('counter');
+    _progressBar = document.getElementById('progressBar');
 
+    // Init progress bar
+    _progressBar.style.width = (1 / _total * 100) + '%';
+
+    // Build dots
     for (var i = 0; i < _total; i++) {
       (function(idx) {
         var d = document.createElement('div');
@@ -806,10 +968,29 @@
       })(i);
     }
 
+    // Keyboard navigation
     document.addEventListener('keydown', function(e) {
       if (e.key === 'ArrowRight') changeSlide(1);
       if (e.key === 'ArrowLeft')  changeSlide(-1);
     });
+
+    // Touch swipe support
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var viewport = document.querySelector('.slide-viewport');
+
+    viewport.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      var dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        changeSlide(dx < 0 ? 1 : -1);
+      }
+    }, { passive: true });
   });
 </script>
 </head>
@@ -823,11 +1004,11 @@
 </div>
 <div style="height:50px;"></div>
 
-
 <div class="deck-wrap">
   <div class="slide-counter" id="counter">1 / 10</div>
 
   <div class="slide-viewport">
+    <div class="progress-bar" id="progressBar"></div>
 
     <!-- S1 表紙 -->
     <div class="slide active" id="s1">
@@ -847,6 +1028,29 @@
       <div class="right">
         <div class="circle1"></div>
         <div class="circle2"></div>
+        <div class="feature-cards">
+          <div class="feat-card">
+            <div class="ficon">📋</div>
+            <div>
+              <div class="ftitle">PHR管理</div>
+              <div class="fdesc">医療データを一元化</div>
+            </div>
+          </div>
+          <div class="feat-card">
+            <div class="ficon">🤖</div>
+            <div>
+              <div class="ftitle">AIコンシェルジュ</div>
+              <div class="fdesc">24時間専門医AIサポート</div>
+            </div>
+          </div>
+          <div class="feat-card">
+            <div class="ficon">👥</div>
+            <div>
+              <div class="ftitle">コミュニティ</div>
+              <div class="fdesc">患者同士がつながる場</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="footer">
         <span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span>
@@ -859,21 +1063,25 @@
       <div class="header"><h2>患者さんが直面している現実</h2></div>
       <div class="cards">
         <div class="card">
+          <div class="stat-badge">67%<span>が経験</span></div>
           <div class="emoji">😔</div>
           <div class="q">「先生の説明が難しくてわからない」</div>
           <div class="a">専門用語が多く、治療方針を理解できないまま同意している</div>
         </div>
         <div class="card">
+          <div class="stat-badge">58%<span>が困難</span></div>
           <div class="emoji">😟</div>
           <div class="q">「自分の検査データがどこにあるか不明」</div>
           <div class="a">転院のたびにデータが散逸し、病歴をゼロから説明する</div>
         </div>
         <div class="card">
+          <div class="stat-badge">42%<span>が断念</span></div>
           <div class="emoji">😰</div>
           <div class="q">「セカンドオピニオンを受けたいが方法がわからない」</div>
           <div class="a">紹介状の手続きが複雑で踏み出せない患者が多数</div>
         </div>
         <div class="card">
+          <div class="stat-badge">71%<span>が孤独感</span></div>
           <div class="emoji">😞</div>
           <div class="q">「同じ病気の人と話したい」</div>
           <div class="a">孤独な闘病。信頼できる仲間に出会う場所がない</div>
@@ -965,7 +1173,16 @@
         </div>
         <div class="disclaimer">※ AIの回答は医師が監修。必要に応じてオンラインクリニック受診をご案内します。</div>
       </div>
-      <div class="right"><div class="circle"></div></div>
+      <div class="right">
+        <div class="circle"></div>
+        <div class="chat-ui">
+          <div class="chat-bubble user">血液検査でHbA1cが7.2と言われました。どう理解すればいいですか？</div>
+          <div class="chat-bubble ai"><strong>HbA1c 7.2%</strong>は糖尿病の管理目標値（7%未満）をわずかに超えた状態です。直ちに深刻ではありませんが、食事・運動の見直しをお勧めします。</div>
+          <div class="chat-bubble user">受診した方がいいですか？</div>
+          <div class="chat-bubble ai">はい、主治医への定期受診を続けながら、<strong>生活習慣の改善</strong>を試みてください。次回受診時に相談しましょう。</div>
+          <div class="chat-time">AI回答 ｜ 医師監修済み</div>
+        </div>
+      </div>
       <div class="footer" style="background:#054D44;color:#7ED8CF"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>5/10</span></div>
     </div>
 
@@ -1088,11 +1305,11 @@
         </div>
         <div class="trust-card">
           <div class="tc-header"><div class="num-badge">3</div><h3>医療広告ガイドライン遵守</h3></div>
-          <p>厚生労働省の医療広告ガイドラインに準拠した情報提供を徹底。弁護士・専門家によるリーガルチェックを実施予定。</p>
+          <p>厚生労働省の医療広告ガイドラインに準拠した情報提供を徹底。弁護士・専門家によるリーガルチェックを実施します。</p>
         </div>
         <div class="trust-card">
           <div class="tc-header"><div class="num-badge">4</div><h3>ものづくり補助金 採択</h3></div>
-          <p>国の審査機関によって事業の革新性・妥当性が公的に認定。750万円の補助金を採択済みです。</p>
+          <p>国の審査機関によって事業の革新性・妥当性が公的に認定。国の補助金採択プロジェクトです。</p>
         </div>
       </div>
       <div class="footer"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>9/10</span></div>
@@ -1122,6 +1339,23 @@
       <div class="right">
         <div class="circle1"></div>
         <div class="circle2"></div>
+        <div class="right-content">
+          <div class="achievement-card">
+            <div class="ach-num">26年</div>
+            <div class="ach-unit">臨床経験</div>
+            <div class="ach-label">放射線診断専門医</div>
+          </div>
+          <div class="achievement-card">
+            <div class="ach-num">20万件+</div>
+            <div class="ach-unit">の読影実績</div>
+            <div class="ach-label">画像診断</div>
+          </div>
+          <div class="achievement-card">
+            <div class="ach-num">公的採択</div>
+            <div class="ach-unit">国の補助金</div>
+            <div class="ach-label">ものづくり補助金</div>
+          </div>
+        </div>
       </div>
       <div class="tagline">「医療の主役を、再び患者の手に。」</div>
       <div class="footer" style="background:#054D44;color:#7ED8CF"><span>KARTE  ｜  柴田 幸司（放射線診断専門医）</span><span>10/10</span></div>
