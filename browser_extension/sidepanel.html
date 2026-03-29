@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Capture</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h2>Discussion Capture</h2>
+
+  <label>Topic</label>
+  <input id="topic" placeholder="kantei_faxdm">
+
+  <label>Capture Mode</label>
+  <select id="captureMode">
+    <option value="selected">Selected Text</option>
+    <option value="page">Page Text</option>
+  </select>
+
+  <label>Output Mode</label>
+  <select id="outputMode">
+    <option value="raw">raw.md</option>
+    <option value="discussion">discussion.md</option>
+  </select>
+
+  <button id="captureBtn">Capture</button>
+  <button id="copyBtn">Copy</button>
+  <button id="saveBtn">Save</button>
+
+  <textarea id="preview" rows="20"></textarea>
+
+  <pre id="command"></pre>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

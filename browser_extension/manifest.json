@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "GlobalMedical Discussion Capture",
+  "version": "0.1.0",
+  "description": "Capture discussion content for AI workflow",
+  "permissions": ["storage", "activeTab", "scripting", "sidePanel"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content_script.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
