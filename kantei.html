@@ -4,186 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>医療鑑定本舗｜裁判で通用する「主張構造」へ再構成</title>
-  <meta name="description" content="その鑑定書、「主張」として機能していますか？ 放射線診断専門医が画像所見を裁判で通用する主張構造に再構成します。" />
+  <meta name="description" content="その鑑定書、「主張」として機能していますか？ 医療過誤・後遺障害・損害賠償・労災で画像所見が争点となる案件について、放射線診断専門医が争点整理・証拠整理・主張補強を支援します。" />
   <style>
-    :root{
-      --black:#070707;--white:#fff;--text:#202020;--muted:#666;
-      --gold:#c9a84c;--red:#a61818;--paper:#faf8f3;--line:#ded6c3;
-      --shadow:0 14px 36px rgba(0,0,0,.08);--radius:18px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    :root{--black:#070707;--white:#fff;--text:#202020;--muted:#666;--gold:#c9a84c;--red:#a61818;--paper:#faf8f3;--line:#ded6c3;--shadow:0 14px 36px rgba(0,0,0,.08);--radius:18px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}
     body{margin:0;font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;color:var(--text);line-height:1.8;background:#fff}
-    a{color:inherit}
-    .container{width:min(1080px,calc(100% - 32px));margin:0 auto}
+    a{color:inherit}.container{width:min(1080px,calc(100% - 32px));margin:0 auto}
     .hero{background:radial-gradient(circle at 80% 10%,rgba(201,168,76,.18),transparent 32%),linear-gradient(180deg,#050505 0%,#141414 100%);color:#fff;padding:72px 0 58px;border-bottom:5px solid var(--gold)}
     .hero-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:32px;align-items:center}
     .eyebrow{display:inline-flex;padding:7px 13px;border:1px solid rgba(255,255,255,.25);border-radius:999px;font-size:13px;font-weight:700;color:#f2e3a2}
     .hero h1{margin:22px 0 14px;font-size:clamp(34px,5vw,58px);line-height:1.18;font-weight:900;letter-spacing:-.03em}
-    .subcopy{margin:0 0 18px;color:#f6e3e3;font-size:clamp(18px,2.1vw,24px);font-weight:800}
-    .lead{margin:0;max-width:760px;color:#e8e8e8;font-size:17px}
-    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 24px;border-radius:14px;text-decoration:none;font-weight:900;border:2px solid transparent;transition:.15s ease}
-    .btn:hover{transform:translateY(-1px);opacity:.94}
-    .btn-primary{background:var(--gold);color:#111}
-    .btn-secondary{color:#fff;border-color:rgba(255,255,255,.35);background:transparent}
-    .hero-card{background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.22);border-radius:24px;padding:26px 24px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-    .hero-card h2{margin:0 0 14px;font-size:22px;line-height:1.45;color:#fff}
-    .hero-card ul{margin:0;padding-left:20px;color:#eee}.hero-card li{margin:7px 0}
-    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-    .badge{display:inline-flex;align-items:center;min-height:34px;padding:6px 12px;border-radius:999px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.42);color:#f5e6ad;font-size:13px;font-weight:800}
-    section{padding:68px 0}.alt{background:var(--paper)}
-    .section-title{margin:0 0 12px;font-size:clamp(26px,3vw,38px);line-height:1.35;font-weight:900;letter-spacing:-.02em}
-    .section-lead{margin:0 0 30px;color:var(--muted);font-size:16px}
-    .problem-box{background:#fff;border:1px solid var(--line);border-left:8px solid var(--red);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow)}
-    .problem-box p{margin:0 0 16px;font-size:17px}.problem-box p:last-child{margin-bottom:0}
-    .emphasis{font-weight:900;color:var(--red)}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .card,.list-card,.contact-panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
-    .card .num{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;background:#111;color:#fff;font-weight:900;margin-bottom:14px}
-    .card h3,.list-card h3{margin:0 0 10px;font-size:21px;line-height:1.45}.card p{margin:0;color:#444}
+    .subcopy{margin:0 0 18px;color:#f6e3e3;font-size:clamp(18px,2.1vw,24px);font-weight:800}.lead{margin:0;max-width:760px;color:#e8e8e8;font-size:17px}
+    .target{margin:20px 0 0;padding:12px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);border-left:6px solid var(--gold);border-radius:14px;font-weight:900;color:#fff}
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 24px;border-radius:14px;text-decoration:none;font-weight:900;border:2px solid transparent;transition:.15s ease}.btn:hover{transform:translateY(-1px);opacity:.94}.btn-primary{background:var(--gold);color:#111}.btn-secondary{color:#fff;border-color:rgba(255,255,255,.35);background:transparent}
+    .hero-card{background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.22);border-radius:24px;padding:26px 24px;box-shadow:0 20px 50px rgba(0,0,0,.25)}.hero-card h2{margin:0 0 14px;font-size:22px;line-height:1.45;color:#fff}.hero-card ul{margin:0;padding-left:20px;color:#eee}.hero-card li{margin:7px 0}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.badge{display:inline-flex;align-items:center;min-height:34px;padding:6px 12px;border-radius:999px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.42);color:#f5e6ad;font-size:13px;font-weight:800}
+    section{padding:68px 0}.alt{background:var(--paper)}.section-title{margin:0 0 12px;font-size:clamp(26px,3vw,38px);line-height:1.35;font-weight:900;letter-spacing:-.02em}.section-lead{margin:0 0 30px;color:var(--muted);font-size:16px}
+    .problem-box{background:#fff;border:1px solid var(--line);border-left:8px solid var(--red);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow)}.problem-box p{margin:0 0 16px;font-size:17px}.problem-box p:last-child{margin-bottom:0}.emphasis{font-weight:900;color:var(--red)}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card,.list-card,.contact-panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}.card .num{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;background:#111;color:#fff;font-weight:900;margin-bottom:14px}.card h3,.list-card h3{margin:0 0 10px;font-size:21px;line-height:1.45}.card p{margin:0;color:#444}
     .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}.list-card ul{margin:0;padding-left:20px}.list-card li{margin:8px 0}
-    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
-    .kpi-box{background:#111;color:#fff;border-radius:var(--radius);padding:24px;text-align:center;border-top:5px solid var(--gold)}
-    .kpi-box .value{font-size:34px;font-weight:900;line-height:1.2}.kpi-box .label{margin-top:8px;color:#ddd;font-size:14px}
-    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-    .step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
-    .step strong{display:block;margin-bottom:8px;font-size:18px}.step span{color:var(--muted);font-size:14px}
-    .cta-band{background:radial-gradient(circle at 20% 0%,rgba(201,168,76,.16),transparent 35%),#090909;color:#fff;padding:54px 0;border-top:5px solid var(--gold);border-bottom:5px solid var(--gold)}
-    .cta-band h2{margin:0 0 10px;font-size:clamp(26px,3vw,40px);line-height:1.35}.cta-band p{margin:0;color:#e8e8e8}
-    .faq details{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 20px;margin-bottom:12px;box-shadow:0 8px 20px rgba(0,0,0,.04)}
-    .faq summary{cursor:pointer;font-weight:900}.answer{margin-top:10px;color:#555}
-    .contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:22px}.contact-panel h2{margin-top:0}.contact-panel ul{margin:0;padding-left:20px}.contact-panel li{margin:8px 0}
-    .small{font-size:13px;color:var(--muted)}
+    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}.kpi-box{background:#111;color:#fff;border-radius:var(--radius);padding:24px;text-align:center;border-top:5px solid var(--gold)}.kpi-box .value{font-size:34px;font-weight:900;line-height:1.2}.kpi-box .label{margin-top:8px;color:#ddd;font-size:14px}
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}.step strong{display:block;margin-bottom:8px;font-size:18px}.step span{color:var(--muted);font-size:14px}
+    .cta-band{background:radial-gradient(circle at 20% 0%,rgba(201,168,76,.16),transparent 35%),#090909;color:#fff;padding:54px 0;border-top:5px solid var(--gold);border-bottom:5px solid var(--gold)}.cta-band h2{margin:0 0 10px;font-size:clamp(26px,3vw,40px);line-height:1.35}.cta-band p{margin:0;color:#e8e8e8}
+    .faq details{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 20px;margin-bottom:12px;box-shadow:0 8px 20px rgba(0,0,0,.04)}.faq summary{cursor:pointer;font-weight:900}.answer{margin-top:10px;color:#555}
+    .contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:22px}.contact-panel h2{margin-top:0}.contact-panel ul{margin:0;padding-left:20px}.contact-panel li{margin:8px 0}.small{font-size:13px;color:var(--muted)}
     footer{background:#101010;color:#d0d0d0;padding:28px 0 40px;font-size:13px}footer a{color:#f1df9a}
     @media(max-width:900px){.hero-grid,.cards,.two-col,.kpi,.flow,.contact-grid{grid-template-columns:1fr}.hero{padding:54px 0 44px}section{padding:52px 0}.btn{width:100%}}
   </style>
 </head>
 <body>
-<header class="hero">
-  <div class="container hero-grid">
-    <div>
-      <div class="eyebrow">弁護士・法律事務所向け 医療鑑定支援</div>
-      <h1>その鑑定書、<br>「主張」として機能していますか？</h1>
-      <p class="subcopy">医学的説明だけでは不十分です。</p>
-      <p class="lead">放射線診断専門医が、画像所見を裁判で通用する「主張構造」に再構成します。交通事故・医療訴訟・労災案件における鑑定書、意見書、争点整理、相手方意見書レビューに対応します。</p>
-      <div class="badges">
-        <span class="badge">初回ZOOM相談 無料</span><span class="badge">読影20万件以上</span><span class="badge">医療鑑定100件以上</span>
-      </div>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://timerex.net/s/admin_848e_49a5/b21e64a7">無料ZOOM相談を予約する</a>
-        <a class="btn btn-secondary" href="#contact">この案件で使えるか確認する</a>
-      </div>
-    </div>
-    <aside class="hero-card">
-      <h2>このような案件でご相談ください</h2>
-      <ul>
-        <li>画像所見が争点になっている</li>
-        <li>医学的説明はあるが、主張として弱い</li>
-        <li>相手方意見書への反論が必要</li>
-        <li>後遺障害・因果関係の整理が必要</li>
-      </ul>
-    </aside>
-  </div>
-</header>
+<header class="hero"><div class="container hero-grid"><div>
+  <div class="eyebrow">弁護士・法律事務所向け 医療鑑定支援</div>
+  <h1>その鑑定書、<br>「主張」として機能していますか？</h1>
+  <p class="subcopy">医学的説明だけでは不十分です。</p>
+  <p class="lead">放射線診断専門医が、画像所見を裁判で使える「争点整理・証拠整理・主張補強」に再構成します。</p>
+  <div class="target">医療過誤・後遺障害・損害賠償・労災で、画像所見が争点となる案件へ。</div>
+  <div class="badges"><span class="badge">初回ZOOM相談 無料</span><span class="badge">読影20万件以上</span><span class="badge">鑑定実績100件以上</span></div>
+  <div class="cta-row"><a class="btn btn-primary" href="https://timerex.net/s/admin_848e_49a5/b21e64a7">無料ZOOM相談を予約する</a><a class="btn btn-secondary" href="#contact">この案件で使えるか確認する</a></div>
+</div><aside class="hero-card"><h2>無料相談で確認できること</h2><ul><li>この案件で医学鑑定が有効か</li><li>どの資料が必要か</li><li>正式鑑定書に進むべきか</li><li>争点整理だけで足りるか</li></ul></aside></div></header>
 
-<section>
-  <div class="container">
-    <h2 class="section-title">鑑定書に必要なのは、医学的説明だけではありません。</h2>
-    <p class="section-lead">訴訟で使える鑑定書には、医学的正確性に加えて、争点・証拠・主張が接続された構造が必要です。</p>
-    <div class="problem-box">
-      <p>多くの医療鑑定書は、医学的には正しくても、裁判上の<span class="emphasis">「主張」</span>として十分に機能していないことがあります。</p>
-      <p>当社では、画像所見を単なる医学的説明で終わらせず、裁判官・弁護士が読み解ける「争点に効く構造」へ整理します。</p>
-    </div>
-  </div>
-</section>
+<section><div class="container"><h2 class="section-title">鑑定書に必要なのは、医学的説明だけではありません。</h2><p class="section-lead">訴訟で使える鑑定書には、医学的正確性に加えて、争点・証拠・主張が接続された構造が必要です。</p><div class="problem-box"><p>多くの医療鑑定書は、医学的には正しくても、裁判上の<span class="emphasis">「主張」</span>として十分に機能していないことがあります。</p><p>当社では、画像所見を単なる医学的説明で終わらせず、裁判官・弁護士が読み解ける「争点に効く構造」へ整理します。</p></div></div></section>
 
-<section class="alt">
-  <div class="container">
-    <h2 class="section-title">当社が行う3つの再構成</h2>
-    <p class="section-lead">FAX DMと同じメッセージを、LP上ではより具体的に説明します。</p>
-    <div class="cards">
-      <article class="card"><div class="num">1</div><h3>争点整理</h3><p>画像所見が、訴訟上どの争点に関係するのかを明確化します。</p></article>
-      <article class="card"><div class="num">2</div><h3>証拠整理</h3><p>どの画像・どの所見が、主張の根拠として使えるのかを整理します。</p></article>
-      <article class="card"><div class="num">3</div><h3>主張補強</h3><p>医学的説明を、裁判用のロジックに変換し、提出可能な形へ整えます。</p></article>
-    </div>
-  </div>
-</section>
+<section class="alt"><div class="container"><h2 class="section-title">当社が行う3つの再構成</h2><p class="section-lead">画像所見を、訴訟実務で使える資料へ落とし込みます。</p><div class="cards">
+<article class="card"><div class="num">1</div><h3>争点整理</h3><p>画像所見が、訴訟上どの争点に関係するのかを明確化します。</p></article>
+<article class="card"><div class="num">2</div><h3>証拠整理</h3><p>どの画像・どの所見が、主張の根拠として使えるのかを整理します。</p></article>
+<article class="card"><div class="num">3</div><h3>主張補強</h3><p>医学的説明を、準備書面・意見書で使える形に変換します。</p></article>
+</div></div></section>
 
-<section>
-  <div class="container">
-    <h2 class="section-title">対応できる案件</h2>
-    <p class="section-lead">画像所見の解釈が、立証・反論・損害評価に関わる案件で特に有効です。</p>
-    <div class="two-col">
-      <div class="list-card"><h3>案件類型</h3><ul><li>交通事故・後遺障害</li><li>医療訴訟・医療過誤</li><li>労災・損害賠償</li><li>画像所見が争点の民事訴訟</li></ul></div>
-      <div class="list-card"><h3>利用場面</h3><ul><li>意見書作成前の争点整理</li><li>相手方意見書への反論</li><li>既存鑑定書のレビュー</li><li>正式鑑定書に進むべきかの一次判断</li></ul></div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-box"><div class="value">20万件超</div><div class="label">画像診断・読影実績</div></div>
-      <div class="kpi-box"><div class="value">100件超</div><div class="label">医療鑑定・報告実績</div></div>
-      <div class="kpi-box"><div class="value">26年</div><div class="label">放射線診断専門医としての経験</div></div>
-    </div>
-  </div>
-</section>
+<section><div class="container"><h2 class="section-title">対応できる案件と成果物</h2><p class="section-lead">対象案件と成果物を明確にしたうえで、必要な範囲から対応します。</p><div class="two-col">
+<div class="list-card"><h3>対応案件</h3><ul><li>医療過誤・医療訴訟</li><li>交通事故・後遺障害</li><li>労災・損害賠償</li><li>画像所見が争点の民事訴訟</li></ul></div>
+<div class="list-card"><h3>成果物例</h3><ul><li>争点整理メモ</li><li>意見書レビュー</li><li>鑑定書</li><li>相手方意見書への反論方針整理</li></ul></div>
+</div><div class="kpi">
+<div class="kpi-box"><div class="value">20万件超</div><div class="label">画像診断・読影実績</div></div>
+<div class="kpi-box"><div class="value">100件超</div><div class="label">医療訴訟・交通事故・労災等の鑑定実績</div></div>
+<div class="kpi-box"><div class="value">26年</div><div class="label">放射線診断専門医としての経験</div></div>
+</div></div></section>
 
-<section class="alt">
-  <div class="container">
-    <h2 class="section-title">いきなり正式鑑定書でなくても構いません。</h2>
-    <p class="section-lead">まずは、資料を拝見したうえで「この案件で医学的鑑定が有効か」を整理します。</p>
-    <div class="flow">
-      <div class="step"><strong>1. 予約</strong><span>TimeRexから無料ZOOM相談を予約</span></div>
-      <div class="step"><strong>2. 資料共有</strong><span>診療録・画像・意見書・準備書面などを送付</span></div>
-      <div class="step"><strong>3. 初回相談</strong><span>対応可否と、適切な支援範囲を判断</span></div>
-      <div class="step"><strong>4. 草案作成</strong><span>必要に応じて争点整理・意見書・鑑定書へ進行</span></div>
-    </div>
-  </div>
-</section>
+<section class="alt"><div class="container"><h2 class="section-title">いきなり正式鑑定書でなくても構いません。</h2><p class="section-lead">まずは、資料を拝見したうえで「この案件で医学的鑑定が有効か」を整理します。</p><div class="flow">
+<div class="step"><strong>1. 予約</strong><span>TimeRexから無料ZOOM相談を予約</span></div>
+<div class="step"><strong>2. 資料共有</strong><span>診療録・画像・意見書・準備書面などを送付</span></div>
+<div class="step"><strong>3. 初回相談</strong><span>対応可否と、適切な支援範囲を判断</span></div>
+<div class="step"><strong>4. 草案作成</strong><span>必要に応じて争点整理・意見書・鑑定書へ進行</span></div>
+</div></div></section>
 
-<section class="cta-band">
-  <div class="container">
-    <h2>まずはこの案件で使えるか、無料で確認してください。</h2>
-    <p>正式鑑定書の前段階として、争点整理・既存意見書レビュー・資料確認のみでも相談可能です。</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://timerex.net/s/admin_848e_49a5/b21e64a7">無料ZOOM相談を予約する</a>
-      <a class="btn btn-secondary" href="mailto:admin@globalmedical.jp">メールで問い合わせる</a>
-    </div>
-  </div>
-</section>
+<section class="cta-band"><div class="container"><h2>まずはこの案件で使えるか、無料で確認してください。</h2><p>正式鑑定書の前段階として、争点整理・既存意見書レビュー・資料確認のみでも相談可能です。</p><div class="cta-row"><a class="btn btn-primary" href="https://timerex.net/s/admin_848e_49a5/b21e64a7">無料ZOOM相談を予約する</a><a class="btn btn-secondary" href="mailto:admin@globalmedical.jp">メールで問い合わせる</a></div></div></section>
 
-<section class="faq">
-  <div class="container">
-    <h2 class="section-title">よくある質問</h2>
-    <details open><summary>相談だけでも可能ですか？</summary><div class="answer">可能です。正式鑑定書に進む前に、現在の資料でどこまで医学的主張を組み立てられるかを確認します。</div></details>
-    <details><summary>どのような資料が必要ですか？</summary><div class="answer">診療録、DICOM画像、相手方意見書、訴状・準備書面、争点メモなどがあると具体的な検討が可能です。</div></details>
-    <details><summary>費用は掲載されていますか？</summary><div class="answer">費用は案件の内容、資料量、必要な成果物により変わるため、Webサイト上には掲載していません。初回相談後に個別にご案内します。</div></details>
-  </div>
-</section>
+<section class="faq"><div class="container"><h2 class="section-title">よくある質問</h2>
+<details open><summary>相談だけでも可能ですか？</summary><div class="answer">可能です。正式鑑定書に進む前に、現在の資料でどこまで医学的主張を組み立てられるかを確認します。</div></details>
+<details><summary>どのような資料が必要ですか？</summary><div class="answer">診療録、DICOM画像、相手方意見書、訴状・準備書面、争点メモなどがあると具体的な検討が可能です。</div></details>
+<details><summary>費用は掲載されていますか？</summary><div class="answer">費用は案件の内容、資料量、必要な成果物により変わるため、Webサイト上には掲載していません。初回相談後に個別にご案内します。</div></details>
+</div></section>
 
-<section class="alt" id="contact">
-  <div class="container contact-grid">
-    <div class="contact-panel">
-      <h2 class="section-title">無料相談・お問い合わせ</h2>
-      <p>画像所見が争点となる案件について、裁判で通用する「主張構造」への再構成が可能か確認します。</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://timerex.net/s/admin_848e_49a5/b21e64a7">TimeRexで予約する</a>
-        <a class="btn" style="background:#fff;border:2px solid #ded6c3;color:#111;" href="mailto:admin@globalmedical.jp">admin@globalmedical.jp</a>
-      </div>
-      <p class="small" style="margin-top:16px;">FAX返信先：03-4578-0373</p>
-    </div>
-    <div class="contact-panel">
-      <h2 class="section-title">相談前にあるとよい資料</h2>
-      <ul><li>診療録</li><li>DICOM画像・検査画像</li><li>相手方意見書</li><li>訴状・準備書面</li><li>争点メモ</li></ul>
-      <p class="small" style="margin-top:14px;">資料がすべて揃っていない段階でも相談可能です。</p>
-    </div>
-  </div>
-</section>
+<section class="alt" id="contact"><div class="container contact-grid"><div class="contact-panel"><h2 class="section-title">無料相談・お問い合わせ</h2><p>画像所見が争点となる案件について、裁判で使える「主張構造」への再構成が可能か確認します。</p><div class="cta-row"><a class="btn btn-primary" href="https://timerex.net/s/admin_848e_49a5/b21e64a7">TimeRexで予約する</a><a class="btn" style="background:#fff;border:2px solid #ded6c3;color:#111;" href="mailto:admin@globalmedical.jp">admin@globalmedical.jp</a></div><p class="small" style="margin-top:16px;">FAX返信先：03-4578-0373</p></div>
+<div class="contact-panel"><h2 class="section-title">相談前にあるとよい資料</h2><ul><li>診療録</li><li>DICOM画像・検査画像</li><li>相手方意見書</li><li>訴状・準備書面</li><li>争点メモ</li></ul><p class="small" style="margin-top:14px;">資料がすべて揃っていない段階でも相談可能です。</p></div></div></section>
 
-<footer>
-  <div class="container">
-    <strong>グローバルメディカル株式会社｜医療鑑定本舗</strong><br>
-    放射線診断専門医による、弁護士・法律事務所向け医療鑑定支援<br>
-    <a href="https://globalmedical.jp/">https://globalmedical.jp/</a>
-  </div>
-</footer>
-</body>
-</html>
+<footer><div class="container"><strong>グローバルメディカル株式会社｜医療鑑定本舗</strong><br>放射線診断専門医による、弁護士・法律事務所向け医療鑑定支援<br><a href="https://globalmedical.jp/">https://globalmedical.jp/</a></div></footer>
+</body></html>
