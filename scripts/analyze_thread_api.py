@@ -134,6 +134,7 @@ def split_sections(text: str) -> dict:
         "website_update_proposal.md",
         "risk_check.md",
     ]
+    allowed = set(markers)
 
     sections = {}
     current = None
@@ -143,6 +144,13 @@ def split_sections(text: str) -> dict:
         stripped = line.strip()
         if stripped.startswith("===") and stripped.endswith("==="):
             name = stripped.strip("=").strip()
+
+            # Only accept known section markers.
+            # Ignore explanatory lines such as:
+            # === 以下、6種類の出力を順に提示します ===
+            if name not in allowed:
+                continue
+
             if current:
                 sections[current] = "\n".join(buffer).strip() + "\n"
             current = name
