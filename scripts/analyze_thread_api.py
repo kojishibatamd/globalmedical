@@ -37,6 +37,16 @@ USER_PROMPT_TEMPLATE = """
 以下は、グローバルメディカル株式会社のプロジェクト内スレッド内容です。
 この内容をもとに、6種類の出力を作成してください。
 
+全体制約：
+- 出力全体を簡潔にしてください。
+- summary.md は最大800字程度にしてください。
+- decisions.md は各分類最大5項目までにしてください。
+- issues_proposal.md は最大5件までにしてください。
+- context_update_proposal.md は最大5項目までにしてください。
+- website_update_proposal.md は最大5項目までにしてください。
+- risk_check.md は必ず最後まで完結させてください。
+- 長くなりそうな場合は、summary.md / decisions.md / issues_proposal.md を短縮し、risk_check.md を優先してください。
+
 # 出力1: summary.md
 以下を含める：
 - スレッドの主題
@@ -215,7 +225,7 @@ def main():
 
     response = client.messages.create(
         model=DEFAULT_MODEL,
-        max_tokens=8000,
+        max_tokens=12000,
         temperature=0.2,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_prompt}],
