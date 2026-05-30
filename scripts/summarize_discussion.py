@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 
-ROOT = Path.home() / "globalmedical"
+ROOT = Path(__file__).resolve().parents[1]
 
 def main(topic):
     raw = ROOT / "inbox" / topic / "raw.md"
