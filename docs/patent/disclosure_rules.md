@@ -2,8 +2,8 @@
 
 ## Strictly Prohibited
 - NIC control details
-- VMX settings
-- L2 isolation implementation
+- Virtualization environment implementation parameters
+- Network isolation implementation details
 - AI internal pipeline
 
 ## Allowed

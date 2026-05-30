@@ -30,9 +30,9 @@ This repository manages:
 DO NOT expose or describe in public materials:
 
 ### Remote system (遠隔化本舗)
-- NIC exclusive assignment (L2 isolation specifics)
+- Network access control implementation details
 - USB-Ethernet device binding details
-- .vmx configuration (e.g. usb.autoConnect)
+- Virtualization configuration details and implementation parameters
 - VMware KVM mode operation details
 - Host/guest switching mechanism
 - Any reproducible system-level implementation details
