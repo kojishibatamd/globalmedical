@@ -3,3 +3,14 @@
 # AI generated temporary outputs
 outputs/
 tmp/
+
+# Local secrets and environment variables
+.env
+.env_*
+*.env
+
+# Local sensitive inputs
+inbox/*/medical_*
+inbox/*/patient_*
+inbox/*/contract_*
+inbox/*/patent_*
