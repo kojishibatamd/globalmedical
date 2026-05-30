@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# WARNING:
+# This pipeline sends input text to Codex CLI.
+# Do not use with medical records, patient information,
+# unpublished patent details, confidential contracts, or private business discussions.
+#
 set -euo pipefail
 
 TOPIC=""
