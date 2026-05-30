@@ -205,7 +205,7 @@ Before proposing changes, consult these when relevant:
 
 1. docs/patent/disclosure_rules.md
 2. docs/company/overview.md
-3. docs/operations/workflow.md
+3. docs/operation/workflow.md
 4. docs/prompts/
 5. docs/products/
 6. docs/investor/
