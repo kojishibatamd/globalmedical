@@ -1,1 +1,5 @@
 *:Zone.Identifier
+
+# AI generated temporary outputs
+outputs/
+tmp/
