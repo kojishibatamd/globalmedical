@@ -1,5 +1,4 @@
 # AI Thread Analysis Pipeline
-
 ## 目的
 
 ChatGPTプロジェクト内のスレッド内容を、以下の成果物に分解する。
@@ -40,6 +39,7 @@ cat "$latest/issues_proposal.md"
 cat "$latest/context_update_proposal.md"
 cat "$latest/website_update_proposal.md"
 cat "$latest/risk_check.md"
+
 出力ファイル
 summary.md
 decisions.md
