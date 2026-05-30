@@ -14,3 +14,6 @@ inbox/*/medical_*
 inbox/*/patient_*
 inbox/*/contract_*
 inbox/*/patent_*
+
+# Local thread inputs
+inbox/
