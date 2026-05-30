@@ -54,6 +54,14 @@ USER_PROMPT_TEMPLATE = """
 
 # 出力3: issues_proposal.md
 GitHub Issue案を作る。
+
+重要：
+- Issue案は最大5件までにしてください。
+- 各IssueのTasksは最大5項目までにしてください。
+- 各IssueのDone Criteriaは最大3項目までにしてください。
+- 長くなりすぎる場合は、Issue本文を短縮してください。
+- ただし、必ず最後の risk_check.md まで出力してください。
+
 各Issueは以下の形式：
 ## Issue: タイトル
 Priority: High/Medium/Low
@@ -77,12 +85,17 @@ Webサイト、LP、KARTE.appページ等に反映しうる内容を整理する
 - 追加確認が必要な内容
 
 # 出力6: risk_check.md
+このセクションは必ず出力してください。
+前半の出力が長くなる場合でも、省略してはいけません。
+
 以下を確認する：
 - 患者情報・医療情報リスク
 - 契約・NDAリスク
 - 特許出願前公開リスク
 - 医療広告ガイドライン上の注意
 - 誤認・過大表現リスク
+
+出力が長くなりそうな場合は、issues_proposal.md を短縮し、risk_check.md を優先してください。
 
 出力形式：
 必ず以下の区切りで出力してください。
