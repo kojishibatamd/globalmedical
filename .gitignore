@@ -17,3 +17,7 @@ inbox/*/patent_*
 
 # Local thread inputs
 inbox/
+
+# Python cache
+__pycache__/
+*.pyc
