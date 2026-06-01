@@ -98,6 +98,15 @@ echo
 echo "Preparing context update review..."
 "$ROOT_DIR/scripts/gm_prepare_context_update.sh" "$TOPIC"
 
+if [ -x "$ROOT_DIR/scripts/gm_copy_project_instruction_patch.sh" ]; then
+  echo
+  echo "Copying project instruction patch to clipboard..."
+  "$ROOT_DIR/scripts/gm_copy_project_instruction_patch.sh" "$TOPIC"
+else
+  echo
+  echo "WARNING: gm_copy_project_instruction_patch.sh not found or not executable."
+fi
+
 echo
 echo "Git status:"
 git -C "$ROOT_DIR" status --short --branch
