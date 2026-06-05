@@ -1,8 +1,10 @@
 *:Zone.Identifier
+.DS_Store
 
 # AI generated temporary outputs
 outputs/
 tmp/
+data/
 
 # Local secrets and environment variables
 .env
@@ -21,3 +23,13 @@ inbox/
 # Python cache
 __pycache__/
 *.pyc
+.venv/
+
+# DICOM and generated image/archive files
+*.dcm
+*.DCM
+*.jpg
+*.JPG
+*.jpeg
+*.JPEG
+*.zip
