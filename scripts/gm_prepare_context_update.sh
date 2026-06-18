@@ -20,7 +20,11 @@ fi
 mkdir -p "$REVIEW_ROOT"
 
 if [ -f "$HOME/.env_globalmedical" ]; then
-  source "$HOME/.env_globalmedical"
+  if [ "${GM_NO_UI:-0}" = "1" ]; then
+    source "$HOME/.env_globalmedical" >/dev/null 2>&1
+  else
+    source "$HOME/.env_globalmedical"
+  fi
 else
   echo "WARNING: ~/.env_globalmedical not found."
 fi
@@ -47,7 +51,9 @@ echo "$LATEST_DIR/review_notes.md"
 echo "$LATEST_DIR/risk_check.md"
 echo
 
-open "$LATEST_DIR"
+if [ "${GM_NO_UI:-0}" != "1" ]; then
+  open "$LATEST_DIR"
+fi
 
 if [ -f "$LATEST_DIR/project_instruction_patch.md" ]; then
   echo "---- project_instruction_patch.md ----"

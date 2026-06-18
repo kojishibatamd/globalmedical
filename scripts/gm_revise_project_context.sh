@@ -8,7 +8,11 @@ PYTHON_BIN="/Library/Developer/CommandLineTools/usr/bin/python3"
 mkdir -p "$REVISION_ROOT"
 
 if [ -f "$HOME/.env_globalmedical" ]; then
-  source "$HOME/.env_globalmedical"
+  if [ "${GM_NO_UI:-0}" = "1" ]; then
+    source "$HOME/.env_globalmedical" >/dev/null 2>&1
+  else
+    source "$HOME/.env_globalmedical"
+  fi
 else
   echo "WARNING: ~/.env_globalmedical not found."
 fi
@@ -33,8 +37,12 @@ echo
 echo "---- project_instruction_revised.md (first 220 lines) ----"
 sed -n '1,220p' "$REVISED_FILE"
 
-pbcopy < "$REVISED_FILE"
-echo
-echo "Copied project_instruction_revised.md to clipboard."
+if [ "${GM_NO_UI:-0}" != "1" ]; then
+  pbcopy < "$REVISED_FILE"
+  echo
+  echo "Copied project_instruction_revised.md to clipboard."
+fi
 
-open "$LATEST_DIR"
+if [ "${GM_NO_UI:-0}" != "1" ]; then
+  open "$LATEST_DIR"
+fi

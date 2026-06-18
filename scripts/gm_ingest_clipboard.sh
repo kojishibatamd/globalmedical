@@ -98,13 +98,15 @@ echo
 echo "Preparing context update review..."
 "$ROOT_DIR/scripts/gm_prepare_context_update.sh" "$TOPIC"
 
-if [ -x "$ROOT_DIR/scripts/gm_copy_project_instruction_patch.sh" ]; then
+if [ -x "$ROOT_DIR/scripts/gm_revise_project_context.sh" ]; then
   echo
-  echo "Copying project instruction patch to clipboard..."
-  "$ROOT_DIR/scripts/gm_copy_project_instruction_patch.sh" "$TOPIC"
+  echo "Preparing revised project context..."
+  "$ROOT_DIR/scripts/gm_revise_project_context.sh"
+  echo
+  echo "project_instruction_revised.md has been copied to clipboard."
 else
   echo
-  echo "WARNING: gm_copy_project_instruction_patch.sh not found or not executable."
+  echo "WARNING: gm_revise_project_context.sh not found or not executable."
 fi
 
 echo
