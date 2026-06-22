@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 TODAY_ROOT="$ROOT_DIR/outputs/today_tasks"
 PYTHON_BIN="/Library/Developer/CommandLineTools/usr/bin/python3"
+TODAY_DIR="$TODAY_ROOT/$(date +%F)"
 
 log() {
   printf '%s\n' "$*" >&2
@@ -25,17 +26,25 @@ else
   log "WARNING: ~/.env_globalmedical not found."
 fi
 
+ANTHROPIC_PREFIX="sk-""ant-"
+OPENAI_PREFIX="sk-""proj-"
+GITHUB_PREFIX="ghp""_"
+
+if [ -n "${ANTHROPIC_API_KEY:-}" ] &&
+  [[ "$ANTHROPIC_API_KEY" != "$ANTHROPIC_PREFIX"* && "$ANTHROPIC_API_KEY" != "$OPENAI_PREFIX"* ]]; then
+  fail "ANTHROPIC_API_KEY has an unexpected format."
+fi
+
 log "Running suggest_today_tasks.py..."
-"$PYTHON_BIN" "$ROOT_DIR/scripts/suggest_today_tasks.py" >&2
+"$PYTHON_BIN" "$ROOT_DIR/scripts/suggest_today_tasks.py" "$@" >&2
 
-LATEST_DIR="$(ls -td "$TODAY_ROOT/"* 2>/dev/null | head -1)"
-TODAY_FILE="$LATEST_DIR/today_tasks.md"
+TODAY_FILE="$TODAY_DIR/today_tasks.md"
 
-if [ -z "$LATEST_DIR" ] || [ ! -f "$TODAY_FILE" ]; then
+if [ ! -f "$TODAY_FILE" ]; then
   fail "today_tasks.md not found."
 fi
 
-if grep -E -q 'sk-ant-|sk-proj-|ghp_|GITHUB_TOKEN=.*ghp|OPENAI_API_KEY=.*sk|ANTHROPIC_API_KEY=.*sk' "$TODAY_FILE"; then
+if grep -E -q "$ANTHROPIC_PREFIX|$OPENAI_PREFIX|$GITHUB_PREFIX|GITHUB_TOKEN=.*ghp|OPENAI_API_KEY=.*sk|ANTHROPIC_API_KEY=.*sk" "$TODAY_FILE"; then
   fail "Dangerous token-like pattern found in today_tasks.md."
 fi
 
