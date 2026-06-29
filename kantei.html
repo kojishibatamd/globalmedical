@@ -22,7 +22,7 @@
     .hero{background:radial-gradient(circle at 80% 10%,rgba(201,168,76,.18),transparent 32%),linear-gradient(180deg,#050505 0%,#141414 100%);color:#fff;padding:72px 0 58px;border-bottom:5px solid var(--gold)}
     .hero-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:32px;align-items:center}
     .eyebrow{display:inline-flex;padding:7px 13px;border:1px solid rgba(255,255,255,.25);border-radius:999px;font-size:13px;font-weight:700;color:#f2e3a2}
-    .hero h1{margin:22px 0 14px;font-size:clamp(34px,5vw,58px);line-height:1.18;font-weight:900;letter-spacing:-.03em}
+    .hero h1{margin:22px 0 14px;font-size:clamp(34px,5vw,58px);line-height:1.18;font-weight:900;letter-spacing:-.03em}.hero-title-line{display:block;white-space:nowrap}
     .subcopy{margin:0 0 18px;color:#f6e3e3;font-size:clamp(18px,2.1vw,24px);font-weight:800}.lead{margin:0;max-width:760px;color:#e8e8e8;font-size:17px}
     .target{margin:20px 0 0;padding:12px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);border-left:6px solid var(--gold);border-radius:14px;font-weight:900;color:#fff}
     .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 24px;border-radius:14px;text-decoration:none;font-weight:900;border:2px solid transparent;transition:.15s ease}.btn:hover{transform:translateY(-1px);opacity:.94}.btn-primary{background:var(--gold);color:#111}.btn-secondary{color:#fff;border-color:rgba(255,255,255,.35);background:transparent}
@@ -38,16 +38,17 @@
     .faq details{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 20px;margin-bottom:12px;box-shadow:0 8px 20px rgba(0,0,0,.04)}.faq summary{cursor:pointer;font-weight:900}.answer{margin-top:10px;color:#555}
     .contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:22px}.contact-panel h2{margin-top:0}.contact-panel ul{margin:0;padding-left:20px}.contact-panel li{margin:8px 0}.small{font-size:13px;color:var(--muted)}
     footer{background:#101010;color:#d0d0d0;padding:28px 0 40px;font-size:13px}footer a{color:#f1df9a}
-    @media(max-width:900px){.hero-grid,.cards,.two-col,.kpi,.flow,.contact-grid{grid-template-columns:1fr}.hero{padding:54px 0 44px}section{padding:52px 0}.btn{width:100%}}
+    @media(max-width:900px){.hero-grid,.cards,.two-col,.kpi,.flow,.contact-grid{grid-template-columns:1fr}.hero{padding:54px 0 44px}.hero h1{font-size:clamp(28px,8.35vw,38px);line-height:1.24;letter-spacing:-.045em;word-break:keep-all;line-break:strict}.mobile-line{display:block}.subcopy{font-size:clamp(16px,4.55vw,19px);line-height:1.55;letter-spacing:-.02em;word-break:keep-all;line-break:strict}.target{font-size:clamp(15px,4.2vw,17px);line-height:1.65;letter-spacing:-.02em;word-break:keep-all;line-break:strict}section{padding:52px 0}.btn{width:100%}}
+    @media(max-width:340px){.hero h1{font-size:26px}.subcopy{font-size:15px}.target{font-size:14px}}
   </style>
 </head>
 <body>
 <header class="hero"><div class="container hero-grid"><div>
   <div class="eyebrow">弁護士・法律事務所向け 医療鑑定支援</div>
-  <h1>CT・MRI画像の評価で、<br>主張に迷う案件へ。</h1>
-  <p class="subcopy">匿名化した事案概要だけで、対応可否・必要資料・鑑定書の要否を確認します。</p>
+  <h1><span class="hero-title-line">CT・MRI画像の評価で、</span><span class="hero-title-line">主張に迷う案件へ。</span></h1>
+  <p class="subcopy"><span class="mobile-line">匿名化した事案概要だけで、</span><span class="mobile-line">対応可否・必要資料・鑑定書の要否を確認します。</span></p>
   <p class="lead">放射線診断専門医が、CT・MRI画像所見のスポットレビューと必要資料の整理に対応します。</p>
-  <div class="target">医療過誤・後遺障害・損害賠償・労災で、画像所見が争点となる案件へ。</div>
+  <div class="target"><span class="mobile-line">医療過誤・後遺障害・損害賠償・労災で、</span><span class="mobile-line">画像所見が争点となる案件へ。</span></div>
   <div class="badges"><span class="badge">対応可否の初期確認</span><span class="badge">読影20万件以上</span><span class="badge">鑑定実績100件以上</span></div>
   <div class="cta-row"><a class="btn btn-primary" href="mailto:kantei@globalmedical.jp?subject=%E5%8C%BB%E7%99%82%E9%91%91%E5%AE%9A%E3%81%AE%E5%AF%BE%E5%BF%9C%E5%8F%AF%E5%90%A6%E7%A2%BA%E8%AA%8D" onclick="if (typeof gtag === 'function') { gtag('event', 'click_kantei_email'); }">事案概要をメールで送る</a><a class="btn btn-secondary" href="https://timerex.net/s/admin_848e_49a5/b21e64a7" onclick="if (typeof gtag === 'function') { gtag('event', 'click_kantei_timerex'); }">無料ZOOM相談を予約する</a></div>
 </div><aside class="hero-card"><h2>初期確認で整理できること</h2><ul><li>画像所見レビューの対応可否</li><li>検討に必要な資料</li><li>正式な鑑定書の要否</li><li>スポットレビューで足りる範囲</li></ul></aside></div></header>
