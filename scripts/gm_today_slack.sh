@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 ENV_FILE="$HOME/.env_globalmedical"
 FORCE_ARGS=()
 LABEL_UPDATE=0
+DIAGNOSE_INPUTS=0
 
 log() {
   printf '%s\n' "$*" >&2
@@ -20,6 +21,12 @@ for arg in "$@"; do
     --force)
       FORCE_ARGS+=("--force")
       ;;
+    --regenerate-after-state-change)
+      FORCE_ARGS+=("--regenerate-after-state-change")
+      ;;
+    --diagnose-inputs)
+      DIAGNOSE_INPUTS=1
+      ;;
     --label-update)
       LABEL_UPDATE=1
       ;;
@@ -28,6 +35,10 @@ for arg in "$@"; do
       ;;
   esac
 done
+
+if [ "$DIAGNOSE_INPUTS" -eq 1 ]; then
+  exec "$ROOT_DIR/scripts/gm_today_remote.sh" --diagnose-inputs
+fi
 
 if [ ! -f "$ENV_FILE" ]; then
   fail "~/.env_globalmedical not found."

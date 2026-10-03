@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 TODAY_ROOT="$ROOT_DIR/outputs/today_tasks"
 PYTHON_BIN="/Library/Developer/CommandLineTools/usr/bin/python3"
-TODAY_DIR="$TODAY_ROOT/$(date +%F)"
+TODAY_DIR="$TODAY_ROOT/$(TZ=Asia/Tokyo date +%F)"
 
 mkdir -p "$TODAY_ROOT"
 
@@ -13,6 +13,12 @@ if [ -f "$HOME/.env_globalmedical" ]; then
 else
   echo "WARNING: ~/.env_globalmedical not found."
 fi
+
+for arg in "$@"; do
+  if [ "$arg" = "--diagnose-inputs" ]; then
+    exec "$PYTHON_BIN" "$ROOT_DIR/scripts/suggest_today_tasks.py" "$@"
+  fi
+done
 
 "$PYTHON_BIN" "$ROOT_DIR/scripts/suggest_today_tasks.py" "$@"
 

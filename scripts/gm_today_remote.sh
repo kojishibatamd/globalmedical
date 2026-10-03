@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 TODAY_ROOT="$ROOT_DIR/outputs/today_tasks"
 PYTHON_BIN="/Library/Developer/CommandLineTools/usr/bin/python3"
-TODAY_DIR="$TODAY_ROOT/$(date +%F)"
+TODAY_DIR="$TODAY_ROOT/$(TZ=Asia/Tokyo date +%F)"
 
 log() {
   printf '%s\n' "$*" >&2
@@ -16,6 +16,12 @@ fail() {
 }
 
 mkdir -p "$TODAY_ROOT"
+
+for arg in "$@"; do
+  if [ "$arg" = "--diagnose-inputs" ]; then
+    exec "$PYTHON_BIN" "$ROOT_DIR/scripts/suggest_today_tasks.py" "$@"
+  fi
+done
 
 if [ -f "$HOME/.env_globalmedical" ]; then
   # shellcheck source=/dev/null
